@@ -1,0 +1,28 @@
+.fun-message {
+
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: center;
+    align-items: center;
+    
+    position: absolute;
+    top: 10%;
+
+    width: fit-content;
+    min-height: 80px;
+    padding: 10px;
+    
+    font-weight: 700;
+    font-size: 16px;
+
+    animation: fadeIn 1s ease;
+}
+
+.fun-sucess {
+    background-color: hsla(91, 59%, 69%, 0.75);
+}
+
+.fun-error {
+    background-color: hsl(0, 60%, 69%, 0.75); 
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Funcionário</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="fun-app">
+
+        <header class="fun-header" th:include="fragments/nav :: nav"></header>
+        
+        <main class="fun-main">
+
+            <ul>
+                <li th:each="funcionario : ${funcionarioLista}">
+
+                    <section>
+                        <div>
+                            <span th:text="${funcionario.nome}"></span>
+                            <span th:text="${funcionario.email}"></span>
+                            <span th:text="${funcionario.telefone}"></span>
+                        </div>
+                        <div>
+                            <button></button>
+                            <button></button>    
+                        </div>
+                    </section>
+
+                </li>
+            </ul>    
+        
+        </main>
+    
+    </div>
+</body>
+</html>
