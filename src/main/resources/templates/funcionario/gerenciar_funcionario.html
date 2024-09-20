@@ -14,23 +14,26 @@
         
         <main class="fun-main">
 
-            <ul>
-                <li th:each="funcionario : ${funcionarioLista}">
+            <ul th:if="#{!lists.isEmpty(${funcionarioLista})}" class="fun-profile-list">
+                <li class="fun-profile" th:each="funcionario : ${funcionarioLista}">
 
-                    <section>
-                        <div>
-                            <span th:text="${funcionario.nome}"></span>
-                            <span th:text="${funcionario.email}"></span>
-                            <span th:text="${funcionario.telefone}"></span>
-                        </div>
-                        <div>
-                            <button></button>
-                            <button></button>    
-                        </div>
-                    </section>
+                    <ul class="fun-profile-info">
+                        <li th:text="${funcionario.nome}"></li>
+                        <li th:text="${funcionario.email}"></li>
+                        <li th:text="${funcionario.telefone}"></li>
+                    </ul>
+                    <div class="fun-profile-actions">
+                        <button class="fun-submit">Editar</button>
+                        <button class="fun-submit" >Excluir</button>    
+                    </div>
 
                 </li>
+
             </ul>    
+
+            <div th:if="#{lists.isEmpty(${funcionarioLista})}" class="fun-message fun-sucess">
+                <p>Não há funcionários cadastrados no sistema.</p>
+            </div>
         
         </main>
     

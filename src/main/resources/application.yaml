@@ -5,14 +5,13 @@ spring:
   mvc:
     hiddenmethod:
       filter:
-        enable: true
+        enabled: true
   
   datasource:
     url: jdbc:h2:file:./data/testdb
     driverClassName: org.h2.Driver
-    username: funcionarios
-    password: 123
-    plataform: h2
+    username: sa
+    password: password
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect

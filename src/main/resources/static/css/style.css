@@ -1,7 +1,8 @@
 @import url("reset.css");
-@import url("form.css");
+@import url("form_funcionario.css");
 @import url("message.css");
 @import url("fragments/nav.css");
+@import url("profile-list.css");
 
 * {
     box-sizing: border-box;
