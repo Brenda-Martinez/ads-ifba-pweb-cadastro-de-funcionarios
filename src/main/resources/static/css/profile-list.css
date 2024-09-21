@@ -2,8 +2,10 @@
 
     display: flex;
     flex-wrap: wrap;
-    height:min-content;
-    gap: 5px;
+    justify-content: center;
+    height: fit-content;
+    row-gap: 25px;
+    column-gap: 15px;
 }
 
 .fun-profile {

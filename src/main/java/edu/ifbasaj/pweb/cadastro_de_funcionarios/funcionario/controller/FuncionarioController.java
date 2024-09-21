@@ -27,28 +27,15 @@ public class FuncionarioController {
     private final FuncionarioService service;
     
     @GetMapping({"cadastrar_funcionario", ""})
-    String getCadastrarFuncionario(Model model){
+    String getPageCadastrarFuncionario(Model model){
         
         model.addAttribute("funcionarioDTO", new FuncionarioDTO());
 
         return "funcionario/cadastrar_funcionario";
     }
 
-    @PostMapping("cadastrar_funcionario")
-    String postCadastrarFuncionario(@ModelAttribute @Valid FuncionarioDTO funcionarioDTO, RedirectAttributes reAtt){
-        
-        var optional = service.create(funcionarioDTO);
-
-        if(optional.isPresent()){
-            reAtt.addFlashAttribute("messageStyle", "fun-message fun-sucess");
-            reAtt.addFlashAttribute("messageText", optional.get().getNome() + " foi cadastrado(a) com sucesso.");
-        }
-
-        return "redirect:cadastrar_funcionario";
-    }
-
     @GetMapping("gerenciar_funcionario")
-    String getGerenciarFuncionario(@RequestParam(value = "id", required = false) String id, Model model){
+    String getPageGerenciarFuncionario(@RequestParam(value = "id", required = false) String id, Model model){
 
         var funcionarioLista = service.findAll();
         model.addAttribute("funcionarioLista", funcionarioLista);
@@ -61,8 +48,29 @@ public class FuncionarioController {
         return "funcionario/gerenciar_funcionario";
     }
 
+    @GetMapping("gerenciar_funcionario/{id}")
+    String getPageEditarFuncionario(@PathVariable UUID id, RedirectAttributes reAtt){
+
+        reAtt.addAttribute("id", id);
+
+        return "redirect:/funcionario/gerenciar_funcionario";
+    }
+
+    @PostMapping("cadastrar_funcionario")
+    String postDataCadastrarFuncionario(@ModelAttribute @Valid FuncionarioDTO funcionarioDTO, RedirectAttributes reAtt){
+        
+        var optional = service.create(funcionarioDTO);
+
+        if(optional.isPresent()){
+            reAtt.addFlashAttribute("messageStyle", "fun-message fun-sucess");
+            reAtt.addFlashAttribute("messageText", optional.get().getNome() + " foi cadastrado(a) com sucesso.");
+        }
+
+        return "redirect:cadastrar_funcionario";
+    }
+
     @DeleteMapping("gerenciar_funcionario/{id}")
-    String deleteGerenciarFuncionario(@PathVariable UUID id, RedirectAttributes reAtt){
+    String deleteDataGerenciarFuncionario(@PathVariable UUID id, RedirectAttributes reAtt){
 
         service.remove(id);
 
@@ -72,16 +80,8 @@ public class FuncionarioController {
         return "redirect:/funcionario/gerenciar_funcionario";
     }
 
-    @GetMapping("gerenciar_funcionario/{id}")
-    String getEditarFuncionario(@PathVariable UUID id, RedirectAttributes reAtt){
-
-        reAtt.addAttribute("id", id);
-
-        return "redirect:/funcionario/gerenciar_funcionario";
-    }
-
     @PutMapping("gerenciar_funcionario")
-    String putGerenciarFuncionario(@ModelAttribute @Valid FuncionarioDTO funcionarioDTO,
+    String putDataGerenciarFuncionario(@ModelAttribute @Valid FuncionarioDTO funcionarioDTO,
         RedirectAttributes reAtt) {
         
         var optional = service.update(funcionarioDTO);
