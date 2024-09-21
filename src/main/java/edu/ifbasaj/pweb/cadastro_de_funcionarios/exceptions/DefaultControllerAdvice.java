@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import static edu.ifbasaj.pweb.cadastro_de_funcionarios.constants.PathConstants.*;
-
 @ControllerAdvice
 public class DefaultControllerAdvice {
 
@@ -39,7 +37,7 @@ public class DefaultControllerAdvice {
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
         reAtt.addFlashAttribute("messageText", erros);
 
-        return new RedirectView(CADASTRAR_FUNCIONARIO);
+        return new RedirectView("cadastrar_funcionario");
     }
 
     @ExceptionHandler(value = {IllegalArgumentException.class})
@@ -52,7 +50,7 @@ public class DefaultControllerAdvice {
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
         reAtt.addFlashAttribute("messageText", erros);
 
-        return new RedirectView(CADASTRAR_FUNCIONARIO);
+        return new RedirectView("cadastrar_funcionario");
     }
 
 }

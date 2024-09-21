@@ -5,29 +5,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.model.dto.FuncionarioDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.service.funcionario.FuncionarioService;
-import static edu.ifbasaj.pweb.cadastro_de_funcionarios.constants.PathConstants.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequestMapping("funcionario/")
 @RequiredArgsConstructor
 public class FuncionarioController {
 
     private final FuncionarioService service;
     
-    @GetMapping(CADASTRAR_FUNCIONARIO)
+    @GetMapping({"cadastrar_funcionario", "/"})
     String getCadastrarFuncionario(Model model){
         
         model.addAttribute("funcionarioDTO", new FuncionarioDTO());
 
-        return CADASTRAR_FUNCIONARIO;
+        return "funcionario/cadastrar_funcionario";
     }
 
-    @PostMapping(CADASTRAR_FUNCIONARIO)
+    @PostMapping("cadastrar_funcionario")
     String postCadastrarFuncionario(@ModelAttribute @Valid FuncionarioDTO funcionarioDTO, RedirectAttributes reAtt){
         
         var optional = service.create(funcionarioDTO);
@@ -37,16 +38,16 @@ public class FuncionarioController {
             reAtt.addFlashAttribute("messageText", optional.get().getNome() + " foi cadastrado(a) com sucesso.");
         }
 
-        return String.format("redirect:%s", CADASTRAR_FUNCIONARIO);
+        return "redirect:cadastrar_funcionario";
     }
 
-    @GetMapping(GERENCIAR_FUNCIONARIO)
+    @GetMapping("gerenciar_funcionario")
     String getGerenciarFuncionario(Model model){
 
         var funcionarioLista = service.findAll();
 
         model.addAttribute("funcionarioLista", funcionarioLista);
 
-        return GERENCIAR_FUNCIONARIO;
+        return "funcionario/gerenciar_funcionario";
     }
 }
