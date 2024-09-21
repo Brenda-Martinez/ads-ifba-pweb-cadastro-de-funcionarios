@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.model.dto.FuncionarioDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.service.funcionario.FuncionarioService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -48,11 +48,15 @@ public class FuncionarioController {
     }
 
     @GetMapping("gerenciar_funcionario")
-    String getGerenciarFuncionario(Model model){
+    String getGerenciarFuncionario(@RequestParam(value = "id", required = false) String id, Model model){
 
         var funcionarioLista = service.findAll();
-
         model.addAttribute("funcionarioLista", funcionarioLista);
+        
+        if(id != null){
+            
+            model.addAttribute("funcionarioSelecionado", service.findById(UUID.fromString(id)).get());
+        }
 
         return "funcionario/gerenciar_funcionario";
     }
@@ -69,21 +73,23 @@ public class FuncionarioController {
     }
 
     @GetMapping("gerenciar_funcionario/{id}")
-    String getEditarFuncionario(@PathVariable UUID id, Model model){
+    String getEditarFuncionario(@PathVariable UUID id, RedirectAttributes reAtt){
 
-        var funcionarioLista = service.findAll();
+        reAtt.addAttribute("id", id);
 
-        model.addAttribute("funcionarioLista", funcionarioLista);
-        model.addAttribute("funcionarioSelecionado", service.findById(id).get());
-
-        return "funcionario/gerenciar_funcionario";
+        return "redirect:/funcionario/gerenciar_funcionario";
     }
 
     @PutMapping("gerenciar_funcionario")
     String putGerenciarFuncionario(@ModelAttribute @Valid FuncionarioDTO funcionarioDTO,
         RedirectAttributes reAtt) {
         
-        // Processamento será implementado
+        var optional = service.update(funcionarioDTO);
+
+        if(optional.isPresent()){
+            reAtt.addFlashAttribute("messageStyle", "fun-message fun-sucess");
+            reAtt.addFlashAttribute("messageText", optional.get().getNome() + " foi editao(a) com sucesso.");
+        }
 
         return "redirect:/funcionario/gerenciar_funcionario";
     }

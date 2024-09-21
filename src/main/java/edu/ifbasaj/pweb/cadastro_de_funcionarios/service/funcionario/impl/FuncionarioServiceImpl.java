@@ -67,23 +67,29 @@ public class FuncionarioServiceImpl implements FuncionarioService {
             throw new EntityNotFoundException();
         }
 
-
         return Optional.of(mapper.toFuncionarioDTO(funcionarioSalvo.get()));
     }
 
     @Override
     public void remove(UUID id) {
         
-        if(findById(id).isPresent()){
-            repository.deleteById(id);
-        }
-
+        findById(id);
+        
+        repository.deleteById(id);
     }
 
     @Override
-    public Optional<FuncionarioDTO> update(FuncionarioDTO f) {
-        // TODO Auto-generated method stub
-        return Optional.empty();
+    public Optional<FuncionarioDTO> update(FuncionarioDTO funcionarioDTO) {
+        
+        var funcionarioCorrespondente = findById(funcionarioDTO.getId()).get();
+
+        if(!funcionarioCorrespondente.getCpf().equals(funcionarioDTO.getCpf())){
+            throw new IllegalArgumentException("Não é possível editar o CPF");
+        }
+
+        var funcionarioSalvo = repository.save(mapper.toFuncionario(funcionarioDTO));
+
+        return Optional.of(mapper.toFuncionarioDTO(funcionarioSalvo));
     }
     
     

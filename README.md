@@ -8,10 +8,6 @@ Desenvolvido por Brenda Martinez e Isaque Lis
 - localhost:8080/h2-console
 
 ### O que falta implementar
-- Funcionário
-    - Edição (Controller/Service)
-    - Relacionamentos
-    - API Rest
 - Cargo
     - Model de Cargo (entidade/dto/mapper)
     - Cadastro (Controller/Service)
@@ -26,8 +22,12 @@ Desenvolvido por Brenda Martinez e Isaque Lis
     - Edição e exclusão (Controller/Service)
     - Relacionamentos
 
+- Funcionário
+    - Relacionamentos
+    - API Rest
+    
 - Endereço
-    - Simular Requisição/Resposta de API
+    - ?
 
 - Estilização de Telas
 

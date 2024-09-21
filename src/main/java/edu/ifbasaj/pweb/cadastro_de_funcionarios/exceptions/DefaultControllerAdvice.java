@@ -10,21 +10,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class DefaultControllerAdvice {
 
     @ExceptionHandler(value = {EntityNotFoundException.class})
-    public RedirectView handleEntityNotFoundException(EntityNotFoundException ex, RedirectAttributes reAtt){
+    public RedirectView handleEntityNotFoundException(EntityNotFoundException ex, RedirectAttributes reAtt,
+        HttpServletRequest request){
 
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
         reAtt.addFlashAttribute("messageText", "Não foi possível encontrar este usuário no sistema.");
 
-        return new RedirectView("gerenciar_funcionario");
+        return new RedirectView(request.getRequestURI().toString());
     }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
-    public RedirectView handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, RedirectAttributes reAtt) {
+    public RedirectView handleMethodArgumentNotValidException(MethodArgumentNotValidException ex,
+        RedirectAttributes reAtt, HttpServletRequest request) {
         
         List<String> erros = new ArrayList<>();
 
@@ -48,11 +51,12 @@ public class DefaultControllerAdvice {
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
         reAtt.addFlashAttribute("messageText", erros);
 
-        return new RedirectView("cadastrar_funcionario");
+        return new RedirectView(request.getRequestURI().toString());
     }
 
     @ExceptionHandler(value = {IllegalArgumentException.class})
-    public RedirectView handleIllegalArgumentException(IllegalArgumentException ex, RedirectAttributes reAtt) {
+    public RedirectView handleIllegalArgumentException(IllegalArgumentException ex, RedirectAttributes reAtt,
+        HttpServletRequest request) {
         
         List<String> erros = new ArrayList<>();
 
@@ -61,7 +65,7 @@ public class DefaultControllerAdvice {
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
         reAtt.addFlashAttribute("messageText", erros);
 
-        return new RedirectView("cadastrar_funcionario");
+        return new RedirectView(request.getRequestURI().toString());
     }
 
 }
