@@ -10,11 +10,11 @@
 <body>
     <div class="fun-app">
 
-        <header class="fun-header" th:include="fragments/nav :: nav"></header>
+        <header class="fun-header" th:insert="~{fragments/nav :: nav}"></header>
         
         <main class="fun-main">
 
-            <ul th:if="#{!lists.isEmpty(${funcionarioLista})}" class="fun-profile-list">
+            <ul th:if="${!#lists.isEmpty(funcionarioLista)}" class="fun-profile-list">
                 <li class="fun-profile" th:each="funcionario : ${funcionarioLista}">
 
                     <ul class="fun-profile-info">
@@ -27,11 +27,10 @@
                         <button class="fun-submit" >Excluir</button>    
                     </div>
 
-                </li>
+                </li>  
+            </ul>
 
-            </ul>    
-
-            <div th:if="#{lists.isEmpty(${funcionarioLista})}" class="fun-message fun-sucess">
+            <div th:if="${#lists.isEmpty(funcionarioLista)}" class="fun-message fun-sucess"></div>
                 <p>Não há funcionários cadastrados no sistema.</p>
             </div>
         
