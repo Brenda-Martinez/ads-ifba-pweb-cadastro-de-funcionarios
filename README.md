@@ -9,8 +9,7 @@ Desenvolvido por Brenda Martinez e Isaque Lis
 
 ### O que falta implementar
 - Funcionário
-    - Listagem (Controller/Service)
-    - Edição e exclusão (Controller/Service)
+    - Edição (Controller/Service)
     - Relacionamentos
     - API Rest
 - Cargo

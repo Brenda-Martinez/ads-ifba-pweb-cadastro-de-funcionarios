@@ -11,6 +11,7 @@ import edu.ifbasaj.pweb.cadastro_de_funcionarios.mapper.FuncionarioMapper;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.model.dto.FuncionarioDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.repository.FuncionarioRepository;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.service.funcionario.FuncionarioService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -56,14 +57,26 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
         return dtoList;
     }
+
     @Override
     public FuncionarioDTO findById(UUID id) {
-        // TODO Auto-generated method stub
-        return null;
+        
+        var funcionarioSalvo = repository.findById(id);
+
+        if (funcionarioSalvo.isEmpty()){
+            throw new EntityNotFoundException("");
+        }
+
+
+        return mapper.toFuncionarioDTO(funcionarioSalvo.get());
     }
+
     @Override
     public void remove(UUID id) {
-        // TODO Auto-generated method stub
+        
+        findById(id);
+        
+        repository.deleteById(id);
         
     }
     @Override

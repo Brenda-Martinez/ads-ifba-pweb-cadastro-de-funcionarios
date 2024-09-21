@@ -9,8 +9,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @ControllerAdvice
 public class DefaultControllerAdvice {
+
+    @ExceptionHandler(value = {EntityNotFoundException.class})
+    public RedirectView handleEntityNotFoundException(EntityNotFoundException ex, RedirectAttributes reAtt){
+
+        reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
+        reAtt.addFlashAttribute("messageText", "Não foi possível encontrar este usuário no sistema.");
+
+        return new RedirectView("gerenciar_funcionario");
+    }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public RedirectView handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, RedirectAttributes reAtt) {
