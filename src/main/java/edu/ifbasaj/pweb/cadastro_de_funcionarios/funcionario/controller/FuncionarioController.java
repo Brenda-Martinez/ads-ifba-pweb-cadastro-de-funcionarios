@@ -1,4 +1,4 @@
-package edu.ifbasaj.pweb.cadastro_de_funcionarios.controller;
+package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.controller;
 
 import java.util.UUID;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.model.dto.FuncionarioDTO;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.service.funcionario.FuncionarioService;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.FuncionarioDTO;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.FuncionarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;

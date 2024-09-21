@@ -1,4 +1,4 @@
-package edu.ifbasaj.pweb.cadastro_de_funcionarios.model.entity;
+package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.entity;
 
 import java.time.LocalDate;
 import java.util.UUID;

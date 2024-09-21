@@ -1,9 +1,10 @@
-package edu.ifbasaj.pweb.cadastro_de_funcionarios.repository;
+package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.repository;
 
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.model.entity.Funcionario;
+
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.entity.Funcionario;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, UUID>{
     

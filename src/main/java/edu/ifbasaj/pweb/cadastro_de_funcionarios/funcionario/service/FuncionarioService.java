@@ -1,10 +1,10 @@
-package edu.ifbasaj.pweb.cadastro_de_funcionarios.service.funcionario;
+package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.model.dto.FuncionarioDTO;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.FuncionarioDTO;
 
 public interface FuncionarioService {
 

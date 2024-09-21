@@ -1,4 +1,4 @@
-package edu.ifbasaj.pweb.cadastro_de_funcionarios.model.dto;
+package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -21,22 +21,24 @@ public class FuncionarioDTO {
     private String nome;
 
     @NotEmpty(message = "O cpf não pode ser vazio.")
+    @Pattern(regexp= "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$",
+        message = "O CPF digitado não é válido.")
     private String cpf;
 
     @NotEmpty(message = "O email não pode ser vazio.")
-    @Email(message = "O email deve ser válido, ex: exemplo@dominio.com")
+    @Email(message = "O E-mail digitado não é válido.")
     private String email;
 
     @Pattern(regexp = "^\\(\\d{2}\\) \\d{5}-\\d{4}$",
-    message = "O telefone deve ser válido, ex: (00) 00000-0000")
+    message = "O telefone digitado não é válido.")
     private String telefone;
 
     @NotNull(message = "A data de nascimento não pode ser vazia.")
-    @Past(message = "A data de nascimento precisa ser válida.")
+    @Past(message = "A data de nascimento digitada não é válida.")
     private LocalDate dataNascimento;
 
     @NotNull(message = "A data de admissão não pode ser vazia.")
-    @Past(message = "A data de admissão precisa ser válida.")
+    @Past(message = "A data de Admissão digitado não é válida.")
     private LocalDate dataAdmissao;
 
     @NotNull(message = "O salário não pode ser vazio.")

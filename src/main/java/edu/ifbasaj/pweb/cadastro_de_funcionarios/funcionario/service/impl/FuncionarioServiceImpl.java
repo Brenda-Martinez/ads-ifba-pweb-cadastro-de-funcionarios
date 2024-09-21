@@ -1,4 +1,4 @@
-package edu.ifbasaj.pweb.cadastro_de_funcionarios.service.funcionario.impl;
+package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.impl;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -7,10 +7,10 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.mapper.FuncionarioMapper;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.model.dto.FuncionarioDTO;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.repository.FuncionarioRepository;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.service.funcionario.FuncionarioService;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.mapper.FuncionarioMapper;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.FuncionarioDTO;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.repository.FuncionarioRepository;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.FuncionarioService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 

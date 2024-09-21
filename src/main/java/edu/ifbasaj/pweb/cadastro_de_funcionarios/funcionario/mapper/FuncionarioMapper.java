@@ -1,9 +1,9 @@
-package edu.ifbasaj.pweb.cadastro_de_funcionarios.mapper;
+package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.mapper;
 
 import org.mapstruct.Mapper;
 
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.model.dto.FuncionarioDTO;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.model.entity.Funcionario;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.FuncionarioDTO;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.entity.Funcionario;
 
 @Mapper(componentModel = "spring")
 public abstract class FuncionarioMapper {
