@@ -59,26 +59,27 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public FuncionarioDTO findById(UUID id) {
+    public Optional<FuncionarioDTO> findById(UUID id) {
         
         var funcionarioSalvo = repository.findById(id);
 
         if (funcionarioSalvo.isEmpty()){
-            throw new EntityNotFoundException("");
+            throw new EntityNotFoundException();
         }
 
 
-        return mapper.toFuncionarioDTO(funcionarioSalvo.get());
+        return Optional.of(mapper.toFuncionarioDTO(funcionarioSalvo.get()));
     }
 
     @Override
     public void remove(UUID id) {
         
-        findById(id);
-        
-        repository.deleteById(id);
-        
+        if(findById(id).isPresent()){
+            repository.deleteById(id);
+        }
+
     }
+
     @Override
     public Optional<FuncionarioDTO> update(FuncionarioDTO f) {
         // TODO Auto-generated method stub

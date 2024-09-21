@@ -20,23 +20,36 @@
                     <ul class="fun-profile-info">
                         <li th:text="${funcionario.nome}"></li>
                         <li th:text="${funcionario.email}"></li>
+                        <li th:text="${funcionario.cpf}"></li>
                         <li th:text="${funcionario.telefone}"></li>
                     </ul>
+
+                    <div class="fun-img-section">
+                        <img class="fun-img" src="/img/fun_icon.png" alt="Icone de Usuário">
+                    </div>
                     <div class="fun-profile-actions">
-                        <button class="fun-submit">Editar</button>
+
+                        <form th:action="@{/funcionario/gerenciar_funcionario/{id} (id=${funcionario.id})}"
+                            th:method="GET">
+
+                            <button type="submit" class="fun-submit">READ</button>  
+                        </form>
 
                         <form th:action="@{/funcionario/gerenciar_funcionario/{id} (id=${funcionario.id})}"
                             th:method="POST">
 
                             <input type="hidden" name="_method" value="DELETE">
 
-                            <button type="submit" class="fun-submit">Excluir</button>  
+                            <button type="submit" class="fun-submit">REMOVE</button>  
                         </form>
                           
                     </div>
 
                 </li>  
             </ul>
+
+            <div class="fun-edit-form" th:if="${funcionarioSelecionado != null}"
+                th:insert="~{fragments/edit_form :: edit_form}"></div>
 
             <div th:if="${#lists.isEmpty(funcionarioLista) && messageStyle == null}" class="fun-message fun-sucess">
                 <p>Não há funcionários cadastrados no sistema.</p>

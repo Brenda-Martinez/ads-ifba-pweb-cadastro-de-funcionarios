@@ -7,7 +7,9 @@
 }
 
 .fun-profile {
-    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 280px;
     height: 120px;
     border: 1px solid black;
 }
@@ -15,16 +17,25 @@
 .fun-profile-info {
     display: flex;
     flex-wrap: wrap;
-    height: 50%;
+    height: 64px;
     gap: 5px;
-    padding: 5px;
-    width: inherit;
+    padding: 10px;
+    width: 50%;
 }
 .fun-profile-info li {
     width: 100%;
     height: min-content;
 }
+.fun-img-section {
+    display: flex;
+    justify-content: end;
+    width: 50%;
 
+}
+.fun-img {
+    display: flex;
+    width: 90px;
+}
 .fun-profile-actions {
     display: flex;
     justify-content: end;
@@ -32,5 +43,7 @@
     position: relative;
     right: 5px;
     gap: 5px;
-    height: 50%;
+    width: 100%;
+    height: 35px;
+    
 }

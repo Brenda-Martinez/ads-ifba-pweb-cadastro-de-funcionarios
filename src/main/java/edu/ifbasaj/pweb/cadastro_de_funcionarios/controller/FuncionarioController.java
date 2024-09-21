@@ -14,8 +14,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.model.dto.FuncionarioDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.service.funcionario.FuncionarioService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 @RequestMapping("funcionario/")
@@ -62,6 +64,26 @@ public class FuncionarioController {
 
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-sucess");
         reAtt.addFlashAttribute("messageText", "Funcionário foi removido com sucesso.");
+
+        return "redirect:/funcionario/gerenciar_funcionario";
+    }
+
+    @GetMapping("gerenciar_funcionario/{id}")
+    String getEditarFuncionario(@PathVariable UUID id, Model model){
+
+        var funcionarioLista = service.findAll();
+
+        model.addAttribute("funcionarioLista", funcionarioLista);
+        model.addAttribute("funcionarioSelecionado", service.findById(id).get());
+
+        return "funcionario/gerenciar_funcionario";
+    }
+
+    @PutMapping("gerenciar_funcionario")
+    String putGerenciarFuncionario(@ModelAttribute @Valid FuncionarioDTO funcionarioDTO,
+        RedirectAttributes reAtt) {
+        
+        // Processamento será implementado
 
         return "redirect:/funcionario/gerenciar_funcionario";
     }

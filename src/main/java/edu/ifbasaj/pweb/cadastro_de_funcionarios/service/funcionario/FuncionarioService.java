@@ -16,6 +16,6 @@ public interface FuncionarioService {
 
     List<FuncionarioDTO> findAll();
 
-    FuncionarioDTO findById(UUID id);
+    Optional<FuncionarioDTO> findById(UUID id);
 
 }
