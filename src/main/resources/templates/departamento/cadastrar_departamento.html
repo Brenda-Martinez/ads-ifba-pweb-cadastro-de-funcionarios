@@ -29,16 +29,17 @@
                     <input type="text" id="descricao" th:field="*{descricao}">
                 </div>
 
-                <br><br>
-                <label for="gerente">Gerente:</label>
-                <select id="gerente" name="funcionarioId">
-                    <option value="" disabled selected>Selecione</option>
-                    <option th:each="funcionario : ${funcionarios}" 
-                            th:value="${funcionario.id}" 
-                            th:text="${funcionario.nome}">
-                    </option>
-                    <option th:if="${#lists.isEmpty(funcionarios)}" value="" disabled>Sem funcionários cadastrados</option>
-                </select>
+                <div class="fun-field">
+                    <label for="gerente">Gerente:</label>
+                    <select id="gerente" th:field="*{gerenteId}">
+                        <option value="" disabled selected>Selecione</option>
+                        <option th:each="funcionario : ${funcionarios}" 
+                                th:value="${funcionario.id}" 
+                                th:text="${funcionario.nome}">
+                        </option>
+                        <option th:if="${#lists.isEmpty(funcionarios)}" value="" disabled>Sem funcionários cadastrados</option>
+                    </select>
+                </div>
 
                 <button class="fun-submit" type="submit">CREATE</button>
             </form>

@@ -22,14 +22,15 @@
             
         <div class="fun-field">
             <label for="gerente">Gerente:</label>
-                <select id="gerente" name="funcionarioId">
-                    <option th:each="funcionario : ${funcionarios}" 
-                            th:value="${funcionario.id}" 
-                            th:text="${funcionario.nome}" 
-                            th:selected="${funcionario.id == departamentoDTO.gerente.id}"> 
-                    </option>
-                    <option th:if="${#lists.isEmpty(funcionarios)}" value="" disabled>Sem funcionários cadastrados</option>
-                </select>
+            <select id="gerente" th:field="*{gerenteId}">
+                <option value="" disabled>Selecione</option>
+                <option th:each="funcionario : ${funcionarios}" 
+                        th:value="${funcionario.id}" 
+                        th:text="${funcionario.nome}" 
+                        th:selected="${funcionario.id == departamentoSelecionado.gerenteId}">
+                </option>
+                <option th:if="${#lists.isEmpty(funcionarios)}" value="" disabled>Sem funcionários cadastrados</option>
+            </select>
         </div>
 
         <button class="fun-submit" type="submit">UPDATE</button>

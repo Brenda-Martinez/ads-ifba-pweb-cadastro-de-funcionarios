@@ -21,7 +21,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     private final DepartamentoRepository repository;
     private final DepartamentoMapper mapper;
     
-    @SuppressWarnings("unused")
     @Override
     public Optional<DepartamentoDTO> create(DepartamentoDTO departamentoDTO) {
         
@@ -77,7 +76,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     @Override
     public Optional<DepartamentoDTO> update(DepartamentoDTO departamentoDTO) {
         
-        @SuppressWarnings("unused")
         var departamentoCorrespondente = findById(departamentoDTO.getId()).get();
 
         var departamentoSalvo = repository.save(mapper.toDepartamento(departamentoDTO));

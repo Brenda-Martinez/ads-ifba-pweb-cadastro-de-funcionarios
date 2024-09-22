@@ -42,13 +42,26 @@ public class DepartamentoController {
     }
 
     @GetMapping("gerenciar_departamento")
-    String getPageGerenciarDepartamento(@RequestParam(value = "id", required = false) String id, Model model){
-
+    String getPageGerenciarDepartamento(@RequestParam(value = "id", required = false) String id, Model model) {
         var departamentoLista = service.findAll();
         model.addAttribute("departamentoLista", departamentoLista);
-        
-        if(id != null){
-            model.addAttribute("departamentoSelecionado", service.findById(UUID.fromString(id)).get());
+
+        List<Funcionario> funcionarios = funcionarioRepository.findAll();
+        model.addAttribute("funcionarios", funcionarios);
+
+        // Adicione o nome do gerente diretamente nos departamentos
+        departamentoLista.forEach(departamento -> {
+            if (departamento.getGerenteId() != null) {
+                Funcionario gerente = funcionarioRepository.findById(departamento.getGerenteId()).orElse(null);
+                departamento.setGerenteNome(gerente != null ? gerente.getNome() : "Sem gerente");
+            } else {
+                departamento.setGerenteNome("Sem gerente");
+            }
+        });
+
+        if (id != null) {
+            var departamentoSelecionado = service.findById(UUID.fromString(id)).get();
+            model.addAttribute("departamentoSelecionado", departamentoSelecionado);
         }
 
         return "departamento/gerenciar_departamento";
@@ -83,7 +96,7 @@ public class DepartamentoController {
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-sucess");
         reAtt.addFlashAttribute("messageText", "Removido com sucesso.");
 
-        return "redirect:/cargo/gerenciar_departamento";
+        return "redirect:/departamento/gerenciar_departamento";
     }
 
     @PutMapping("gerenciar_departamento")
