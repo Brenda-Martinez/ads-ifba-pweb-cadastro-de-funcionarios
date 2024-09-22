@@ -1,0 +1,39 @@
+<div th:fragment="edit_form_departamento">
+
+    <form id="form-editar-departamento" class="fun-form" 
+         th:action="@{/departamento/gerenciar_departamento}" th:method="post" th:object="${departamentoSelecionado}">
+
+        <input type="hidden" name="_method" value="PUT">
+
+        <h2 th:text="'Editar ' + ${departamentoSelecionado.nome}"></h2>
+        
+        <input type="hidden" id="id" th:field="*{id}" th:value="${departamentoSelecionado.id}">
+        
+        <div class="fun-field">
+            <label for="nome" form="form-editar-departamento"> Nome: </label>
+            <input type="text" id="nome" placeholder="Tecnologia da Informação"
+                th:field="*{nome}" th:value="${departamentoSelecionado.nome}">
+        </div>
+
+        <div class="fun-field">
+            <label for="descricao" form="form-editar-departamento"> Descricao: </label>
+            <input type="text" id="descricao" th:field="*{descricao}" th:value="${departamentoSelecionado.descricao}">
+        </div>
+            
+        <div class="fun-field">
+            <label for="gerente">Gerente:</label>
+                <select id="gerente" name="funcionarioId">
+                    <option th:each="funcionario : ${funcionarios}" 
+                            th:value="${funcionario.id}" 
+                            th:text="${funcionario.nome}" 
+                            th:selected="${funcionario.id == departamentoDTO.gerente.id}"> 
+                    </option>
+                    <option th:if="${#lists.isEmpty(funcionarios)}" value="" disabled>Sem funcionários cadastrados</option>
+                </select>
+        </div>
+
+        <button class="fun-submit" type="submit">UPDATE</button>
+
+    </form>
+
+</div>
