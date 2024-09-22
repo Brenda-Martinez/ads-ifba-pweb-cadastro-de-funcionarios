@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.mapper.DepartamentoMapper;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.dto.DepartamentoDTO;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.entity.Departamento;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.repository.DepartamentoRepository;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.service.DepartamentoService;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.GerenteJaAssociadoException;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.repository.FuncionarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -20,24 +23,32 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     
     private final DepartamentoRepository repository;
     private final DepartamentoMapper mapper;
+    private final FuncionarioRepository funcionarioRepository;
     
     @Override
     public Optional<DepartamentoDTO> create(DepartamentoDTO departamentoDTO) {
-        
         var optNome = repository.findByNome(departamentoDTO.getNome());
-
-        if(optNome.isPresent()){
+        if (optNome.isPresent()) {
             throw new IllegalArgumentException("Departamento já existe.");
+        }
+        UUID gerenteId = departamentoDTO.getGerenteId();
+
+        if (gerenteId != null) {
+            Optional<Departamento> departamentoGerente = repository.findByGerenteId(gerenteId);
+            
+            if (departamentoGerente.isPresent()) {
+                String gerenteNome = funcionarioRepository.findById(gerenteId)
+                        .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado"))
+                        .getNome();
+                String departamentoNome = departamentoGerente.get().getNome();
+                throw new GerenteJaAssociadoException(gerenteNome, departamentoNome);
+            }
         }
 
         var departamentoSalvo = repository.save(mapper.toDepartamento(departamentoDTO));
 
-        if(departamentoSalvo != null){
-            return Optional.of(mapper.toDepartamentoDTO(departamentoSalvo));
-        }
-
-        return Optional.empty();
-    }
+        return Optional.of(mapper.toDepartamentoDTO(departamentoSalvo));
+    }   
 
     @Override
     public List<DepartamentoDTO> findAll() {
@@ -76,7 +87,22 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     @Override
     public Optional<DepartamentoDTO> update(DepartamentoDTO departamentoDTO) {
         
-        var departamentoCorrespondente = findById(departamentoDTO.getId()).get();
+        var departamentoCorrespondente = findById(departamentoDTO.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Departamento não encontrado"));
+    
+        UUID gerenteId = departamentoDTO.getGerenteId();
+    
+        if (gerenteId != null) {
+            Optional<Departamento> departamentoGerente = repository.findByGerenteId(gerenteId);
+    
+            if (departamentoGerente.isPresent() && !departamentoGerente.get().getId().equals(departamentoDTO.getId())) {
+                String gerenteNome = funcionarioRepository.findById(gerenteId)
+                        .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado"))
+                        .getNome();
+                String departamentoNome = departamentoGerente.get().getNome();
+                throw new GerenteJaAssociadoException(gerenteNome, departamentoNome);
+            }
+        }
 
         var departamentoSalvo = repository.save(mapper.toDepartamento(departamentoDTO));
 

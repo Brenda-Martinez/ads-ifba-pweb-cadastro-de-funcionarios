@@ -71,4 +71,13 @@ public class DefaultControllerAdvice {
         return new RedirectView(request.getRequestURI().toString());
     }
 
+    @ExceptionHandler(GerenteJaAssociadoException.class)
+    public RedirectView handleGerenteJaAssociadoException(GerenteJaAssociadoException ex,
+        RedirectAttributes reAtt, HttpServletRequest request) {
+        
+        reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
+        reAtt.addFlashAttribute("messageText", ex.getMessage());
+
+        return new RedirectView(request.getRequestURI().toString());
+    }
 }

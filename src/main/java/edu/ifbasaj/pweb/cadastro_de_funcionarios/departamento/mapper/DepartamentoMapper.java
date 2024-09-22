@@ -29,6 +29,8 @@ public abstract class DepartamentoMapper {
             Funcionario gerente = funcionarioRepository.findById(dto.getGerenteId())
                 .orElseThrow(() -> new RuntimeException("Gerente não encontrado"));
             departamento.setGerente(gerente);
+        } else {
+            departamento.setGerente(null);
         }
     }
 

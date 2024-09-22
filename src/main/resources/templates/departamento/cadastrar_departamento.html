@@ -32,7 +32,7 @@
                 <div class="fun-field">
                     <label for="gerente">Gerente:</label>
                     <select id="gerente" th:field="*{gerenteId}">
-                        <option value="" disabled selected>Selecione</option>
+                        <option value="" selected>Nenhum gerente</option>
                         <option th:each="funcionario : ${funcionarios}" 
                                 th:value="${funcionario.id}" 
                                 th:text="${funcionario.nome}">

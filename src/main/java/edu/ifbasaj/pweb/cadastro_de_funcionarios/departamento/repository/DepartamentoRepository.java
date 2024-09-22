@@ -10,4 +10,6 @@ public interface DepartamentoRepository extends JpaRepository<Departamento, UUID
     
     Optional<Departamento> findByNome(String nome);
 
+    Optional<Departamento> findByGerenteId(UUID gerenteId);
+
 }
