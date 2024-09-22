@@ -5,6 +5,10 @@ Desenvolvido por Brenda Martinez e Isaque Lis
 ### Páginas
 - localhost:8080/funcionario/cadastrar_funcionario
 - localhost:8080/funcionario/gerenciar_funcionario
+- localhost:8080/cargo/cadastrar_cargo
+- localhost:8080/cargo/gerenciar_cargo
+- localhost:8080/departamento/cadastrar_departamento
+- localhost:8080/departamento/gerenciar_departamento
 - localhost:8080/h2-console
 
 ### O que falta implementar
@@ -12,7 +16,6 @@ Desenvolvido por Brenda Martinez e Isaque Lis
     - Relacionamentos
 
 - Departamento
-    - Edição (Controller/Service)
     - Relacionamentos
 
 - Funcionário
