@@ -9,17 +9,10 @@ Desenvolvido por Brenda Martinez e Isaque Lis
 
 ### O que falta implementar
 - Cargo
-    - Model de Cargo (entidade/dto/mapper)
-    - Cadastro (Controller/Service)
-    - Listagem (Controller/Service)
-    - Edição e exclusão (Controller/Service)
     - Relacionamentos
 
 - Departamento
-    - Model de Departamento (entidade/dto/mapper)
-    - Cadastro (Controller/Service)
-    - Listagem (Controller/Service)
-    - Edição e exclusão (Controller/Service)
+    - Edição (Controller/Service)
     - Relacionamentos
 
 - Funcionário
