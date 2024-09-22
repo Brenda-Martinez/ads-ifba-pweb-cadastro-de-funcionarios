@@ -39,6 +39,9 @@ public class DefaultControllerAdvice {
             else if (e.getField().equals("dataNascimento") && e.getRejectedValue() != null) {
                 erros.add("O campo data de nascimento deve ser válido, ex: yyyy-mm-dd");
             }
+            else if (e.getField().equals("salarioBase") && e.getRejectedValue() != null) {
+                erros.add("O campo salario deve conter apenas números.");
+            }
             else if (e.getField().equals("dataAdmissao") && e.getRejectedValue() != null) {
                 erros.add("O campo data de admissão deve ser válido, ex: yyyy-mm-dd");
             }

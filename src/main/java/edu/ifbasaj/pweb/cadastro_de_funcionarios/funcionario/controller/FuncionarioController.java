@@ -93,4 +93,9 @@ public class FuncionarioController {
 
         return "redirect:/funcionario/gerenciar_funcionario";
     }
+
+    @GetMapping("/index")
+    public String index() {
+        return "index";
+    }
 }
