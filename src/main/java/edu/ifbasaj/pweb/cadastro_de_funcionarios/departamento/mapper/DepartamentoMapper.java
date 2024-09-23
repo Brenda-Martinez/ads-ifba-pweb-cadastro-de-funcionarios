@@ -1,6 +1,5 @@
 package edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.mapper;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import org.mapstruct.Mapper;
