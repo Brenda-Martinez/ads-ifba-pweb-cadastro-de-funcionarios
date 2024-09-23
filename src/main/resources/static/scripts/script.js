@@ -3,7 +3,8 @@
 function showNavOptions(sectionId){
 
     const section = document.getElementById(sectionId);
-
+    console.log(section);
+    
     if(section.classList.contains("fun-nav-hidden")){
         section.classList.remove("fun-nav-hidden");
         section.classList.add("fun-nav-shown");
@@ -15,7 +16,10 @@ function showNavOptions(sectionId){
     const showedSections = document.querySelectorAll(".fun-nav-shown");
 
     showedSections.forEach( sect => {
-        sect.classList.remove("fun-nav-shown");
-        sect.classList.add("fun-nav-hidden");
+
+        if(sect != section){
+            sect.classList.remove("fun-nav-shown");
+            sect.classList.add("fun-nav-hidden");
+        }
     });
 }
