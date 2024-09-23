@@ -1,22 +1,36 @@
 <div th:fragment="nav">
-
-    <h1>Funcionarios</h1>
-
     <nav class="fun-nav">
-        <a href="/funcionario/cadastrar_funcionario"><span>Cadastrar</span></a>
-        <a href="/funcionario/gerenciar_funcionario"><span>Gerenciar</span></a>
-    </nav>
 
-    <h1>Cargos</h1>
-    <nav class="fun-nav">
-        <a href="/cargo/cadastrar_cargo"><span>Cadastrar</span></a>
-        <a href="/cargo/gerenciar_cargo"><span>Gerenciar</span></a>
-    </nav>
+        <section class="fun-nav-section">
+            <button onClick="showNavOptions('funcionarioSection')"
+            class="fun-nav-title"><span>Funcionário</span></button>
 
-    <h1>Departamentos</h1>
-    <nav class="fun-nav">
-        <a href="/departamento/cadastrar_departamento"><span>Cadastrar</span></a>
-        <a href="/departamento/gerenciar_departamento"><span>Gerenciar</span></a>
+            <ul id="funcionarioSection" class="fun-nav-hidden">
+                <li> <a href="/funcionario/cadastrar_funcionario"><span>Cadastrar</span></a> </li>
+                <li> <a href="/funcionario/gerenciar_funcionario"><span>Gerenciar</span></a> </li>
+            </ul>
+        </section>
+        
+        <section class="fun-nav-section">
+            <button onClick="showNavOptions('cargoSection')"
+            class="fun-nav-title"><span>Cargo</span></button>
+
+            <ul id="cargoSection" class="fun-nav-hidden">
+                <li> <a href="/cargo/cadastrar_cargo"><span>Cadastrar</span></a> </li>
+                <li> <a href="/cargo/gerenciar_cargo"><span>Gerenciar</span></a> </li>
+            </ul>
+        </section>
+
+        <section class="fun-nav-section">
+            <button onClick="showNavOptions('departamentoSection')"
+            class="fun-nav-title"><span>Departamento</span></button>
+
+            <ul id="departamentoSection" class="fun-nav-hidden">
+                <li> <a href="/departamento/cadastrar_departamento"><span>Cadastrar</span></a> </li>
+                <li> <a href="/departamento/gerenciar_departamento"><span>Gerenciar</span></a> </li>
+            </ul>
+        </section>
+
     </nav>
     
 </div>

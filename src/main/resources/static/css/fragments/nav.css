@@ -10,3 +10,45 @@
     
     font-size:30px;
 }
+
+.fun-nav-title {
+    width: 160px;
+    font-size: 25px;
+    background-color: white;
+    border-bottom: 1px solid black;
+}
+
+.fun-nav-title:hover {
+    cursor: pointer;
+}
+
+.fun-nav-section {
+    display: block;
+}
+
+.fun-nav-hidden {
+    display: none;
+}
+
+.fun-nav-shown {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 16px;
+
+}
+
+.fun-nav-shown li {
+    position: relative;
+    display: flex;
+    border: 1px solid black;
+    padding: 5px;
+    width: 100%;
+    background-color: white;
+}
+
+.fun-nav-shown li a {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    
+}
