@@ -52,8 +52,32 @@
         </div>
 
         <div class="fun-field">
-            <label for="ativo" form="form-editar-funcionario"> Status: </label>
-            <select name="ativo" id="ativo" th:value="${funcionarioSelecionado.ativo}">
+            <label for="departamento"> Departamento: </label>
+            <select id="departamento" th:field="*{departamentoId}">
+                <option value="" selected>Sem departamento</option>
+                <option th:each="departamento : ${departamentos}" 
+                        th:value="${departamento.id}" 
+                        th:text="${departamento.nome}">
+                </option>
+                <option th:if="${#lists.isEmpty(cargos)}" value="" disabled>Sem departamentos cadastrados</option>
+            </select>
+        </div>
+
+        <div class="fun-field">
+            <label for="cargo"> Cargo: </label>
+            <select id="cargo" th:field="*{cargoId}">
+                <option value="" selected>Sem cargo</option>
+                <option th:each="cargo : ${cargos}" 
+                        th:value="${cargo.id}" 
+                        th:text="${cargo.nome}">
+                </option>
+                <option th:if="${#lists.isEmpty(cargos)}" value="" disabled>Sem cargos cadastrados</option>
+            </select>
+        </div>
+
+        <div class="fun-field">
+            <label for="ativo" form="form-funcionario"> Status: </label>
+            <select name="ativo" id="ativo">
                 <option value="1">Ativo</option>
                 <option value="0">Não ativo</option>
             </select>

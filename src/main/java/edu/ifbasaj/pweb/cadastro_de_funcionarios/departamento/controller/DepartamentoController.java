@@ -16,8 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.dto.DepartamentoDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.service.DepartamentoService;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.entity.Funcionario;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.repository.FuncionarioRepository;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.FuncionarioDTO;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.FuncionarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,13 +27,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequiredArgsConstructor
 public class DepartamentoController {
 
-    private final FuncionarioRepository funcionarioRepository;
+    private final FuncionarioService funcionarioService;
 
     private final DepartamentoService service;
     
     @GetMapping({"cadastrar_departamento"})
     String getPageCadastrarDepartamento(Model model){
-        List<Funcionario> funcionarios = funcionarioRepository.findAll();
+
+        List<FuncionarioDTO> funcionarios = funcionarioService.findAll();
 
         model.addAttribute("funcionarios", funcionarios);
         model.addAttribute("departamentoDTO", new DepartamentoDTO());
@@ -46,18 +47,8 @@ public class DepartamentoController {
         var departamentoLista = service.findAll();
         model.addAttribute("departamentoLista", departamentoLista);
 
-        List<Funcionario> funcionarios = funcionarioRepository.findAll();
+        List<FuncionarioDTO> funcionarios = funcionarioService.findAll();
         model.addAttribute("funcionarios", funcionarios);
-
-        // Adicione o nome do gerente diretamente nos departamentos
-        departamentoLista.forEach(departamento -> {
-            if (departamento.getGerenteId() != null) {
-                Funcionario gerente = funcionarioRepository.findById(departamento.getGerenteId()).orElse(null);
-                departamento.setGerenteNome(gerente != null ? gerente.getNome() : "Sem gerente");
-            } else {
-                departamento.setGerenteNome("Sem gerente");
-            }
-        });
 
         if (id != null) {
             var departamentoSelecionado = service.findById(UUID.fromString(id)).get();

@@ -3,11 +3,14 @@ package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.entity;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.model.entity.Cargo;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.entity.Departamento;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Entity
@@ -36,10 +39,11 @@ public class Funcionario {
 
     private Boolean ativo;
 
-    /* Cargo cargo;
+    @ManyToOne
+    private Cargo cargo;
 
     @ManyToOne
-    Departamento departamento;
-
-    Endereco endereco; */
+    private Departamento departamento;
+    
+    /* Endereco endereco; */
 }

@@ -21,7 +21,6 @@ public class CargoServiceImpl implements CargoService {
     private final CargoRepository repository;
     private final CargoMapper mapper;
     
-    @SuppressWarnings("unused")
     @Override
     public Optional<CargoDTO> create(CargoDTO cargoDTO) {
         
@@ -60,7 +59,7 @@ public class CargoServiceImpl implements CargoService {
         var cargoSalvo = repository.findById(id);
 
         if (cargoSalvo.isEmpty()){
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("Cargo não foi encontrado no sistema.");
         }
 
         return Optional.of(mapper.toCargoDTO(cargoSalvo.get()));
@@ -77,8 +76,7 @@ public class CargoServiceImpl implements CargoService {
     @Override
     public Optional<CargoDTO> update(CargoDTO cargoDTO) {
         
-        @SuppressWarnings("unused")
-        var cargoCorrespondente = findById(cargoDTO.getId()).get();
+        findById(cargoDTO.getId());
 
         var cargoSalvo = repository.save(mapper.toCargo(cargoDTO));
 

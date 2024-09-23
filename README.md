@@ -12,14 +12,12 @@ Desenvolvido por Brenda Martinez e Isaque Lis
 - localhost:8080/h2-console
 
 ### O que falta implementar
-- Cargo
-    - Relacionamentos
-
-- Departamento
-    - Relacionamentos
-
+- Regras de Negócio para Persistência de Dados
+    - Campos obrigatórios de entidades sem registros
+    - Remoção de entidades vínculadas à outras entidades
+    - Salário de Funcionário deve ser igual ou maior ao Salário base de seu cargo
+    
 - Funcionário
-    - Relacionamentos
     - API Rest
     
 - Endereço

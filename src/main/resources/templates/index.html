@@ -1,29 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Funcionarios</title>
+    <title>Cadastrar Cargo</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script defer src="/scripts/script.js"></script>
 </head>
 <body>
+    <div class="fun-app">
+
+        <header class="fun-header" th:insert="~{fragments/nav :: nav}"></header>
+
+        <main class="fun-main">
+
+            <span class="fun-main-subtitle">Sistema ERP</span>
+            <h1 class="fun-main-title">Cadastro de Funcionário</h1>
+
+            <p class="fun-main-text">Desenvolvido por Brenda Martinez e Isaque Lima.</p>
+        </main>
     
-    <h1>Funcionarios</h1>
-
-    <nav class="fun-nav">
-        <a href="/funcionario/cadastrar_funcionario"><span>Cadastrar</span></a>
-        <a href="/funcionario/gerenciar_funcionario"><span>Gerenciar</span></a>
-    </nav>
-
-    <h1>Cargos</h1>
-    <nav class="fun-nav">
-        <a href="/cargo/cadastrar_cargo"><span>Cadastrar</span></a>
-        <a href="/cargo/gerenciar_cargo"><span>Gerenciar</span></a>
-    </nav>
-
-    <h1>Departamentos</h1>
-    <nav class="fun-nav">
-        <a href="/departamento/cadastrar_departamento"><span>Cadastrar</span></a>
-        <a href="/departamento/gerenciar_departamento"><span>Gerenciar</span></a>
-    </nav>
+    </div>
 </body>
 </html>

@@ -19,15 +19,13 @@
                 <li class="fun-profile" th:each="funcionario : ${funcionarioLista}">
 
                     <ul class="fun-profile-info">
-                        <li th:text="${funcionario.nome}"></li>
-                        <li th:text="${funcionario.email}"></li>
-                        <li th:text="${funcionario.cpf}"></li>
-                        <li th:text="${funcionario.telefone}"></li>
+                        <li th:text="'Nome: ' + ${funcionario.nome}"></li>
+                        <li th:if="${funcionario.cargoNome != null}" th:text="'Cargo: ' + ${funcionario.cargoNome}"></li>
+                        <li th:if="${funcionario.cargoNome == null}">Sem cargo</li>
+                        <li th:text="'E-mail: ' + ${funcionario.email}"></li>
+                        <li th:text="'CPF: ' + ${funcionario.cpf}"></li>
                     </ul>
 
-                    <div class="fun-img-section">
-                        <img class="fun-img" src="/img/fun_icon.png" alt="Icone de Usuário">
-                    </div>
                     <div class="fun-profile-actions">
 
                         <form th:action="@{/funcionario/gerenciar_funcionario/{id} (id=${funcionario.id})}"

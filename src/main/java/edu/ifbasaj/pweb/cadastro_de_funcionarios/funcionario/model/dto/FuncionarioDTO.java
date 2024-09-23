@@ -47,11 +47,11 @@ public class FuncionarioDTO {
     @NotNull(message = "O status de atividade não pode ser vazio.")
     private Boolean ativo;
 
-    /* @NotEmpty(message = "O cargo não pode ser vazio")
-    private Cargo cargo;
+    private UUID cargoId;
+    private String cargoNome;
 
-    @NotEmpty(message = "O departamento pode ser vazio")
-    private Departamento departamento;
+    private UUID departamentoId;
+    private String departamentoNome;
 
-    private Endereco endereco; */
+    /* private Endereco endereco; */
 }

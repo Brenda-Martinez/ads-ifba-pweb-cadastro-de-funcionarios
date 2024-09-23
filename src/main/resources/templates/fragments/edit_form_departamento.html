@@ -16,8 +16,9 @@
         </div>
 
         <div class="fun-field">
-            <label for="descricao" form="form-editar-departamento"> Descricao: </label>
-            <input type="text" id="descricao" th:field="*{descricao}" th:value="${departamentoSelecionado.descricao}">
+            <label for="descricao" form="form-editar-departamento"> Descrição: </label>
+            <input type="text" id="descricao" placeholder="Tem como próposito..."
+            th:field="*{descricao}" th:value="${departamentoSelecionado.descricao}">
         </div>
             
         <div class="fun-field">

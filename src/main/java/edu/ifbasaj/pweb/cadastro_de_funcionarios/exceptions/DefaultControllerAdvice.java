@@ -18,9 +18,9 @@ public class DefaultControllerAdvice {
     @ExceptionHandler(value = {EntityNotFoundException.class})
     public RedirectView handleEntityNotFoundException(EntityNotFoundException ex, RedirectAttributes reAtt,
         HttpServletRequest request){
-
+            
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
-        reAtt.addFlashAttribute("messageText", "Não foi possível encontrar este usuário no sistema.");
+        reAtt.addFlashAttribute("messageText", ex.getMessage());
 
         return new RedirectView(request.getRequestURI().toString());
     }

@@ -64,7 +64,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         var funcionarioSalvo = repository.findById(id);
 
         if (funcionarioSalvo.isEmpty()){
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("Não foi possível encontrar este usuário no sistema.");
         }
 
         return Optional.of(mapper.toFuncionarioDTO(funcionarioSalvo.get()));

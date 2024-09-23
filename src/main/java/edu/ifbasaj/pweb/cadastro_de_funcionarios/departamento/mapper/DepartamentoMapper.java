@@ -1,9 +1,10 @@
 package edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.mapper;
 
-import org.mapstruct.AfterMapping;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.dto.DepartamentoDTO;
@@ -15,22 +16,38 @@ import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.repository.Funciona
 public abstract class DepartamentoMapper {
     
     @Autowired
-    protected FuncionarioRepository funcionarioRepository;
+    private FuncionarioRepository funcionarioRepository;
 
-    @Mapping(source = "gerente.id", target = "gerenteId")  // mapeia o ID do gerente para o DTO
+    @Mapping(target = "gerenteId", expression = "java( findGerenteId(source) )")
+    @Mapping(target = "gerenteNome", expression = "java( findGerenteNome(source) )")
     public abstract DepartamentoDTO toDepartamentoDTO(Departamento source);
 
-    @Mapping(target = "gerente", ignore = true)  // ignora a associação gerente durante o mapeamento
+    @Mapping(target = "gerente", expression = "java(findGerenteById(source.getGerenteId()))")
+    @Mapping(target = "funcionarios", ignore = true)
     public abstract Departamento toDepartamento(DepartamentoDTO source);
 
-    @AfterMapping
-    protected void setGerente(DepartamentoDTO dto, @MappingTarget Departamento departamento) {
-        if (dto.getGerenteId() != null) {
-            Funcionario gerente = funcionarioRepository.findById(dto.getGerenteId())
-                .orElseThrow(() -> new RuntimeException("Gerente não encontrado"));
-            departamento.setGerente(gerente);
-        } else {
-            departamento.setGerente(null);
+    public UUID findGerenteId(Departamento source){
+        
+        if(source.getGerente() != null) {
+            return source.getGerente().getId();
+        }
+        return null; 
+    }
+
+    public String findGerenteNome(Departamento source){
+        
+        if(source.getGerente() != null) {
+            return source.getGerente().getNome();
+        } 
+        return null;
+    }
+
+    public Funcionario findGerenteById(UUID id){
+        try {
+            var gerenteDTO = funcionarioRepository.findById(id).get();
+            return gerenteDTO;
+        } catch ( Exception e) {
+            return null;
         }
     }
 

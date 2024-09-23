@@ -19,8 +19,8 @@
                 <li class="fun-profile" th:each="cargo : ${cargoLista}">
 
                     <ul class="fun-profile-info">
-                        <li th:text="${cargo.nome}"></li>
-                        <li th:text="${cargo.descricao}"></li>
+                        <li th:text="'Nome: ' + ${cargo.nome}"></li>
+                        <li th:if="${cargo.descricao != ''}" th:text="'Descrição: ' + ${cargo.descricao}"></li>
                     </ul>
                     <div class="fun-profile-actions">
 
