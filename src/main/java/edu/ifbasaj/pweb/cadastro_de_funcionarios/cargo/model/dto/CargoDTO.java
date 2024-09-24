@@ -1,10 +1,8 @@
 package edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.model.dto;
 
 
-import java.util.List;
 import java.util.UUID;
 
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.entity.Funcionario;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -23,6 +21,4 @@ public class CargoDTO {
 
     @NotNull(message = "O salário não pode ser vazio.")
     private Double salarioBase;
-
-    private List<Funcionario> funcionarios;
 }
