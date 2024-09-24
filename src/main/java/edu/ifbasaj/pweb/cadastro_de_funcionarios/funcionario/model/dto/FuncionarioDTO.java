@@ -3,6 +3,8 @@ package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.model.dto.CargoDTO;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.dto.DepartamentoDTO;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -48,10 +50,11 @@ public class FuncionarioDTO {
     private Boolean ativo;
 
     private UUID cargoId;
-    private String cargoNome;
-
+    private CargoDTO cargo;
+    
     private UUID departamentoId;
-    private String departamentoNome;
+    private DepartamentoDTO departamento;
+
 
     /* private Endereco endereco; */
 }

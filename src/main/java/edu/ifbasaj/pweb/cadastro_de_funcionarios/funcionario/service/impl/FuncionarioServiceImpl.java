@@ -82,13 +82,13 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public Optional<FuncionarioDTO> update(FuncionarioDTO funcionarioDTO) {
         
         var funcionarioCorrespondente = findById(funcionarioDTO.getId()).get();
-
+        
         if(!funcionarioCorrespondente.getCpf().equals(funcionarioDTO.getCpf())){
             throw new IllegalArgumentException("Não é possível editar o CPF");
         }
-
+        
         var funcionarioSalvo = repository.save(mapper.toFuncionario(funcionarioDTO));
-
+        
         return Optional.of(mapper.toFuncionarioDTO(funcionarioSalvo));
     }
     

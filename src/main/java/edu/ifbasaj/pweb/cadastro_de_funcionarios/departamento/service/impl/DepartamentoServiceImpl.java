@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.mapper.DepartamentoMapper;
@@ -12,17 +13,23 @@ import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.dto.Departam
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.repository.DepartamentoRepository;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.service.DepartamentoService;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.GerenteJaAssociadoException;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.repository.FuncionarioRepository;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.FuncionarioService;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class DepartamentoServiceImpl implements DepartamentoService {
     
     private final DepartamentoRepository repository;
     private final DepartamentoMapper mapper;
-    private final FuncionarioRepository funcionarioRepository;
+    private final FuncionarioService funcionarioService;
+
+    public DepartamentoServiceImpl(DepartamentoRepository repository, DepartamentoMapper mapper,
+        @Lazy FuncionarioService funcionarioService){
+        
+        this.repository = repository;
+        this.mapper = mapper;
+        this.funcionarioService = funcionarioService;
+    }
     
     @Override
     public Optional<DepartamentoDTO> create(DepartamentoDTO departamentoDTO) {
@@ -34,11 +41,11 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         var gerenteId = departamentoDTO.getGerenteId();
     
         if (gerenteId != null) {
-            var departamentoGerente = repository.findByGerenteId(gerenteId).get();
+            var departamentoGerente = repository.findByGerenteId(gerenteId);
     
-            if (departamentoGerente != null && !departamentoGerente.getId().equals(departamentoDTO.getId())) {
-                String gerenteNome = funcionarioRepository.findById(gerenteId).get().getNome();
-                String departamentoNome = departamentoGerente.getNome();
+            if (departamentoGerente.isPresent() && !departamentoGerente.get().getId().equals(departamentoDTO.getId())) {
+                String gerenteNome = funcionarioService.findById(gerenteId).get().getNome();
+                String departamentoNome = departamentoGerente.get().getNome();
                 throw new GerenteJaAssociadoException(gerenteNome, departamentoNome);
             }
         }
@@ -68,6 +75,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         var departamentoSalvo = repository.findById(id);
 
         if (departamentoSalvo.isEmpty()){
+            System.out.println("Ele passou aquiiiiiiiiiiiiiiii");
             throw new EntityNotFoundException("Departamento não foi encontrado no sistema.");
         }
 
@@ -90,11 +98,11 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         var gerenteId = departamentoDTO.getGerenteId();
     
         if (gerenteId != null) {
-            var departamentoGerente = repository.findByGerenteId(gerenteId).get();
+            var departamentoGerente = repository.findByGerenteId(gerenteId);
     
-            if (departamentoGerente != null && !departamentoGerente.getId().equals(departamentoDTO.getId())) {
-                String gerenteNome = funcionarioRepository.findById(gerenteId).get().getNome();
-                String departamentoNome = departamentoGerente.getNome();
+            if (departamentoGerente.isPresent() && !departamentoGerente.get().getId().equals(departamentoDTO.getId())) {
+                String gerenteNome = funcionarioService.findById(gerenteId).get().getNome();
+                String departamentoNome = departamentoGerente.get().getNome();
                 throw new GerenteJaAssociadoException(gerenteNome, departamentoNome);
             }
         }

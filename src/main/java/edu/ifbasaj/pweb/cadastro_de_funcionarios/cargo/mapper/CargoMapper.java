@@ -11,5 +11,4 @@ public abstract class CargoMapper {
     public abstract CargoDTO toCargoDTO(Cargo source);
     
     public abstract Cargo toCargo(CargoDTO source);
-
 }

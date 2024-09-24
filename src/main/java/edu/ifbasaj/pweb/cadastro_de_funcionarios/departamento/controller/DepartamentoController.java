@@ -44,13 +44,16 @@ public class DepartamentoController {
 
     @GetMapping("gerenciar_departamento")
     String getPageGerenciarDepartamento(@RequestParam(value = "id", required = false) String id, Model model) {
+
         var departamentoLista = service.findAll();
         model.addAttribute("departamentoLista", departamentoLista);
 
-        List<FuncionarioDTO> funcionarios = funcionarioService.findAll();
-        model.addAttribute("funcionarios", funcionarios);
+        
 
         if (id != null) {
+            List<FuncionarioDTO> funcionarios = funcionarioService.findAll();
+            model.addAttribute("funcionarios", funcionarios);
+            
             var departamentoSelecionado = service.findById(UUID.fromString(id)).get();
             model.addAttribute("departamentoSelecionado", departamentoSelecionado);
         }

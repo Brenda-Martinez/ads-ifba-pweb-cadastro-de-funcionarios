@@ -5,15 +5,16 @@ import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.mapper.CargoMapper;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.model.dto.CargoDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.model.entity.Cargo;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.service.CargoService;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.mapper.DepartamentoMapper;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.dto.DepartamentoDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.entity.Departamento;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.service.DepartamentoService;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.mapper.DepartamentoMapper;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.FuncionarioDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.entity.Funcionario;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.repository.DepartamentoRepository;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.repository.CargoRepository;
 
 @Mapper(componentModel = "spring")
 public abstract class FuncionarioMapper {
@@ -22,72 +23,53 @@ public abstract class FuncionarioMapper {
     private CargoService cargoService;
 
     @Autowired
-    private CargoMapper cargoMapper;
-
-    @Autowired
-    private DepartamentoService departamentoService;
+    private CargoRepository cargoRepository;
 
     @Autowired
     private DepartamentoMapper departamentoMapper;
+
+    @Autowired
+    private DepartamentoRepository departamentoRepository;
     
-    @Mapping(target = "cargoId", expression = "java( findCargoId(source) )")
-    @Mapping(target = "cargoNome", expression = "java( findCargoNome(source) )")
-    @Mapping(target = "departamentoId", expression = "java( findDepartamentoId(source) )")
-    @Mapping(target = "departamentoNome", expression = "java( findDepartamentoNome(source) )")
+    @Mapping(target = "cargo", expression = "java( toCargoDTO(source.getCargo()) )")
+    @Mapping(target = "departamento", expression = "java( toDepartamentoDTO(source.getDepartamento()) )")
+    @Mapping(target = "cargoId", source = "source.cargo.id")
+    @Mapping(target = "departamentoId", source = "source.departamento.id")
     public abstract FuncionarioDTO toFuncionarioDTO(Funcionario source);
     
-    @Mapping(target = "cargo", expression = "java(findCargoById(source.getCargoId()))")
-    @Mapping(target = "departamento", expression = "java(findDepartamentoById(source.getCargoId()))")
+    @Mapping(target = "cargo", expression = "java( toCargo(source.getCargoId()))")
+    @Mapping(target = "departamento", expression = "java( toDepartamento(source.getDepartamentoId()))")
     public abstract Funcionario toFuncionario(FuncionarioDTO source);
 
-    public UUID findCargoId(Funcionario source){
-        
-        if(source.getCargo() != null) {
-            return source.getCargo().getId();
-        }
-        return null; 
-    }
+    public DepartamentoDTO toDepartamentoDTO(Departamento departamento){
 
-    public String findCargoNome(Funcionario source){
-        
-        if(source.getCargo() != null) {
-            return source.getCargo().getNome();
-        } 
-        return null;
-    }
-
-    public UUID findDepartamentoId(Funcionario source){
-        
-        if(source.getDepartamento() != null) {
-            return source.getCargo().getId();
+        if(departamento != null){
+            return departamentoMapper.toDepartamentoDTO(departamento);
         }
         return null;
     }
 
-    public String findDepartamentoNome(Funcionario source){
-        
-        if(source.getDepartamento() != null) {
-            return source.getCargo().getNome();
+    public CargoDTO toCargoDTO(Cargo cargo){
+
+        if(cargo != null){
+            return cargoService.findById(cargo.getId()).get();
         }
         return null;
     }
 
+    public Departamento toDepartamento(UUID id){
 
-    public Cargo findCargoById(UUID id){
-        try {
-            var cargoDTO = cargoService.findById(id).get();
-            return cargoMapper.toCargo(cargoDTO);
-        } catch ( Exception e) {
-            return null;
+        if(id != null){
+            return departamentoRepository.findById(id).get();
         }
+        return null;
     }
 
-    public Departamento findDepartamentoById(UUID id){
-        try {
-            var departamentoDTO = departamentoService.findById(id).get();
-            return departamentoMapper.toDepartamento(departamentoDTO);
-        } catch ( Exception e) {
-            return null;
+    public Cargo toCargo(UUID id){
+
+        if(id != null){
+            return cargoRepository.findById(id).get();
         }
+        return null;
     }
 }
