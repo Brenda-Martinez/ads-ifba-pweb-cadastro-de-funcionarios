@@ -3,7 +3,6 @@
 function showNavOptions(sectionId){
 
     const section = document.getElementById(sectionId);
-    console.log(section);
     
     if(section.classList.contains("fun-nav-hidden")){
         section.classList.remove("fun-nav-hidden");

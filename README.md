@@ -3,6 +3,7 @@
 Desenvolvido por Brenda Martinez e Isaque Lis
 
 ### Páginas
+- localhost:8080/index
 - localhost:8080/funcionario/cadastrar_funcionario
 - localhost:8080/funcionario/gerenciar_funcionario
 - localhost:8080/cargo/cadastrar_cargo
@@ -14,14 +15,13 @@ Desenvolvido por Brenda Martinez e Isaque Lis
 ### O que falta implementar
 - Regras de Negócio para Persistência de Dados
     - Campos obrigatórios de entidades sem registros
-    - Remoção de entidades vínculadas à outras entidades
     - Salário de Funcionário deve ser igual ou maior ao Salário base de seu cargo
     
 - Funcionário
     - API Rest
     
 - Endereço
-    - ?
+    - WebClient
 
 - Estilização de Telas
 

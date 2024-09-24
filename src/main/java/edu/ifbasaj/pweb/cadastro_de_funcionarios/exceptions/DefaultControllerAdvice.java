@@ -80,4 +80,17 @@ public class DefaultControllerAdvice {
 
         return new RedirectView(request.getRequestURI().toString());
     }
+
+    @ExceptionHandler(RemocaoDepartamentoGerenteException.class)
+    public RedirectView handleRemocaoDepartamentoGerenteException(RemocaoDepartamentoGerenteException ex,
+        RedirectAttributes reAtt, HttpServletRequest request) {
+        
+        reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
+        reAtt.addFlashAttribute("messageText", ex.getMessage());
+
+        String uri = request.getRequestURI().toString();
+
+        uri = uri.substring(0, uri.lastIndexOf("/"));
+        return new RedirectView(uri);
+    }
 }

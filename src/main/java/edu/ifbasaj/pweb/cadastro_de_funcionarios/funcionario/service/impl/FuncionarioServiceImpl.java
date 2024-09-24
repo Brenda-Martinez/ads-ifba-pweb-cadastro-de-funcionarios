@@ -11,6 +11,8 @@ import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.mapper.FuncionarioM
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.FuncionarioDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.repository.FuncionarioRepository;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.FuncionarioService;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.service.DepartamentoService;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.RemocaoDepartamentoGerenteException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +22,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     
     private final FuncionarioRepository repository;
     private final FuncionarioMapper mapper;
+    private final DepartamentoService departamentoService;
     
     @Override
     public Optional<FuncionarioDTO> create(FuncionarioDTO funcionarioDTO) {
@@ -73,7 +76,15 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     @Override
     public void remove(UUID id) {
         
-        findById(id);
+        var funcionarioDTO = findById(id).get();
+
+        departamentoService.findAll().forEach( (dep) -> {
+            if(dep.getGerenteId() == funcionarioDTO.getId()){
+                throw new RemocaoDepartamentoGerenteException("Não foi possível remover "
+                + funcionarioDTO.getNome() + " pois ele(a) é gerente do departamento " + dep.getNome() + ".");
+            }
+        });
+
         
         repository.deleteById(id);
     }
@@ -86,7 +97,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         if(!funcionarioCorrespondente.getCpf().equals(funcionarioDTO.getCpf())){
             throw new IllegalArgumentException("Não é possível editar o CPF");
         }
-        
+
         var funcionarioSalvo = repository.save(mapper.toFuncionario(funcionarioDTO));
         
         return Optional.of(mapper.toFuncionarioDTO(funcionarioSalvo));

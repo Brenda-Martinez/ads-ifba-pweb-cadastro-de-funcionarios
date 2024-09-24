@@ -13,6 +13,7 @@ import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.dto.Departam
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.repository.DepartamentoRepository;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.service.DepartamentoService;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.GerenteJaAssociadoException;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.RemocaoDepartamentoGerenteException;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.FuncionarioService;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -85,7 +86,14 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     @Override
     public void remove(UUID id) {
         
-        findById(id);
+        var departamentoDTO = findById(id).get();
+
+        funcionarioService.findAll().forEach( (fun) -> {
+            if(fun.getDepartamento().getId() == departamentoDTO.getId()){
+                throw new RemocaoDepartamentoGerenteException("Não foi possível remover o departamento "
+                + departamentoDTO.getNome() + " pois o(a) gerente " + fun.getNome() + " está associado(a) à ele.");
+            }
+        });
         
         repository.deleteById(id);
     }
