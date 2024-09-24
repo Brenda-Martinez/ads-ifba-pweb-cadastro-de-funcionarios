@@ -12,8 +12,10 @@ import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.mapper.Departament
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.dto.DepartamentoDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.repository.DepartamentoRepository;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.service.DepartamentoService;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.CampoDisponivelVazioException;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.GerenteJaAssociadoException;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.RemocaoDepartamentoGerenteException;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.FuncionarioDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.FuncionarioService;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -34,13 +36,20 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     
     @Override
     public Optional<DepartamentoDTO> create(DepartamentoDTO departamentoDTO) {
+
         var optNome = repository.findByNome(departamentoDTO.getNome());
         if (optNome.isPresent()) {
             throw new IllegalArgumentException("Departamento já existe.");
         }
 
+        List<FuncionarioDTO> funcionarios = funcionarioService.findAll();
+
+        if(!funcionarios.isEmpty() && departamentoDTO.getGerenteId() == null){
+            throw new CampoDisponivelVazioException("O campo gerente não pode ser vazio, " +
+            "já existem funcionários disponíveis no sistema.");
+        }
+
         var gerenteId = departamentoDTO.getGerenteId();
-    
         if (gerenteId != null) {
             var departamentoGerente = repository.findByGerenteId(gerenteId);
     

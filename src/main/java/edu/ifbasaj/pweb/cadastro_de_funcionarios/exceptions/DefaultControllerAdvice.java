@@ -93,4 +93,21 @@ public class DefaultControllerAdvice {
         uri = uri.substring(0, uri.lastIndexOf("/"));
         return new RedirectView(uri);
     }
+
+    @ExceptionHandler(CampoDisponivelVazioException.class)
+    public RedirectView handleCampoDisponivelVazioException(CampoDisponivelVazioException ex,
+        RedirectAttributes reAtt, HttpServletRequest request) {
+        
+        reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
+        reAtt.addFlashAttribute("messageText", ex.getMessage());
+
+        String uri = request.getRequestURI().toString();
+        
+        String lastSegment = uri.substring(uri.lastIndexOf("/"), uri.length() - 1);
+        if(lastSegment.length() > 30){
+            uri = uri.substring(0, uri.lastIndexOf("/"));
+        }
+        
+        return new RedirectView(uri);
+    }
 }
