@@ -3,9 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 350px;
-    height: 400px;
-
+    padding: 6px;
     position: absolute;
     bottom: 15%;
     right: calc(50% - 175px);

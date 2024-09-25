@@ -43,6 +43,7 @@
 .fun-nav-shown li {
     position: relative;
     display: flex;
+
     border: 1px solid black;
     padding: 5px;
     width: 100%;
