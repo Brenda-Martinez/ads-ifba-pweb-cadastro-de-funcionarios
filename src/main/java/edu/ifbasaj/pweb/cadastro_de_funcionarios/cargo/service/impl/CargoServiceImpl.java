@@ -11,6 +11,8 @@ import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.mapper.CargoMapper;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.model.dto.CargoDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.repository.CargoRepository;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.service.CargoService;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.EntidadeAssociadaException;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.utils.ServiceUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -20,14 +22,13 @@ public class CargoServiceImpl implements CargoService {
     
     private final CargoRepository repository;
     private final CargoMapper mapper;
+    private final ServiceUtils utils;
     
     @Override
     public Optional<CargoDTO> create(CargoDTO cargoDTO) {
         
-        var optNome = repository.findByNome(cargoDTO.getNome());
-
-        if(optNome.isPresent()){
-            throw new IllegalArgumentException("Cargo já existe.");
+        if (nomeJaExiste(cargoDTO.getNome())) {
+            throw new IllegalArgumentException("Já existe um cargo com esse nome.");
         }
 
         var cargoSalvo = repository.save(mapper.toCargo(cargoDTO));
@@ -70,6 +71,13 @@ public class CargoServiceImpl implements CargoService {
         
         findById(id);
         
+        var funcionarios = utils.funcionariosComCargo(id);
+        
+        if(!funcionarios.isEmpty()){
+            throw new EntidadeAssociadaException("Não foi possível remover o cargo pois funcionários "
+                + funcionarios + " estão associados à ele.");
+        }
+
         repository.deleteById(id);
     }
 
@@ -84,5 +92,10 @@ public class CargoServiceImpl implements CargoService {
     }
     
     
+    public Boolean nomeJaExiste(String nome){
+        var optCpf = repository.findByNome(nome);
+        if(optCpf.isPresent()) return true;
+        return false;
+    }
 
 }

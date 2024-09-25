@@ -21,6 +21,7 @@
                     <ul class="fun-profile-info">
                         <li th:text="'Nome: ' + ${cargo.nome}"></li>
                         <li th:if="${cargo.descricao != ''}" th:text="'Descrição: ' + ${cargo.descricao}"></li>
+                        <li th:text="'Salário base: ' + ${cargo.salarioBase}"></li>
                     </ul>
                     <div class="fun-profile-actions">
 

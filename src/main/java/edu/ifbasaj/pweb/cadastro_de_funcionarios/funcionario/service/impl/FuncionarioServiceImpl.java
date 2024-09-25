@@ -11,12 +11,9 @@ import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.mapper.FuncionarioM
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.FuncionarioDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.repository.FuncionarioRepository;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.FuncionarioService;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.model.dto.CargoDTO;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.service.CargoService;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.dto.DepartamentoDTO;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.service.DepartamentoService;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.CampoDisponivelVazioException;
-import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.RemocaoDepartamentoGerenteException;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.utils.ServiceUtils;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.CampoVazioException;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.EntidadeAssociadaException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -26,33 +23,32 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     
     private final FuncionarioRepository repository;
     private final FuncionarioMapper mapper;
-    private final DepartamentoService departamentoService;
-    private final CargoService cargoService;
+    private final ServiceUtils utils;
     
     @Override
     public Optional<FuncionarioDTO> create(FuncionarioDTO funcionarioDTO) {
-        
-        var optEmail = repository.findByEmail(funcionarioDTO.getEmail());
-        var optCpf = repository.findByCpf(funcionarioDTO.getCpf());
 
-        List<CargoDTO> cargos = cargoService.findAll();
-        List<DepartamentoDTO> departamentos = departamentoService.findAll();
-
-        if(optEmail.isPresent()){
+        if(emailJaExiste(funcionarioDTO.getEmail())){
             throw new IllegalArgumentException("O email já está sendo utilizado.");
         }
 
-        if(optCpf.isPresent()){
+        if(cpfJaExiste(funcionarioDTO.getCpf())){
             throw new IllegalArgumentException("O cpf já está sendo utilizado.");
         }
 
-        if(!cargos.isEmpty() && funcionarioDTO.getCargoId() == null){
-            throw new CampoDisponivelVazioException("O campo cargo não pode ser vazio, " +
+        if(funcionarioDTO.getCargoId() != null){
+            if(utils.salarioMenorQueBase(funcionarioDTO.getCargoId(), funcionarioDTO.getSalario())){
+                throw new IllegalArgumentException("O salário do funcionário não pode ser menor que o salário base de seu cargo.");
+            }
+        }
+
+        if(utils.entidadesCargoExistem() && funcionarioDTO.getCargoId() == null){
+            throw new CampoVazioException("O campo cargo não pode ser vazio, " +
             "já existem cargos disponíveis no sistema.");
         }
 
-        if(!departamentos.isEmpty() && funcionarioDTO.getDepartamentoId() == null){
-            throw new CampoDisponivelVazioException("O campo departamento não pode ser vazio, " +
+        if(utils.entidadesDepartamentoExistem() && funcionarioDTO.getDepartamentoId() == null){
+            throw new CampoVazioException("O campo departamento não pode ser vazio, " +
             "já existem departamentos disponíveis no sistema.");
         }
 
@@ -95,15 +91,13 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public void remove(UUID id) {
         
         var funcionarioDTO = findById(id).get();
+        var departamento = utils.funcionarioGerenciaDeparamento(id);
 
-        departamentoService.findAll().forEach( (dep) -> {
-            if(dep.getGerenteId() == funcionarioDTO.getId()){
-                throw new RemocaoDepartamentoGerenteException("Não foi possível remover "
-                + funcionarioDTO.getNome() + " pois ele(a) é gerente do departamento " + dep.getNome() + ".");
-            }
-        });
+        if(departamento.isPresent()){
+            throw new EntidadeAssociadaException("Não foi possível remover " + funcionarioDTO.getNome()
+                + " pois ele(a) é gerente do departamento " + departamento.get().getNome() + ".");
+        }
 
-        
         repository.deleteById(id);
     }
 
@@ -116,11 +110,27 @@ public class FuncionarioServiceImpl implements FuncionarioService {
             throw new IllegalArgumentException("Não é possível editar o CPF");
         }
 
+        if(funcionarioDTO.getCargoId() != null){
+            if(utils.salarioMenorQueBase(funcionarioDTO.getCargoId(), funcionarioDTO.getSalario())){
+                throw new IllegalArgumentException("O salário do funcionário não pode ser menor que o salário base de seu cargo.");
+            }
+        }
+
         var funcionarioSalvo = repository.save(mapper.toFuncionario(funcionarioDTO));
         
         return Optional.of(mapper.toFuncionarioDTO(funcionarioSalvo));
     }
     
-    
+    public Boolean emailJaExiste(String email){
+        var optEmail = repository.findByEmail(email);
+        if(optEmail.isPresent()) return true;
+        return false;
+    }
+
+    public Boolean cpfJaExiste(String cpf){
+        var optCpf = repository.findByCpf(cpf);
+        if(optCpf.isPresent()) return true;
+        return false;
+    }
 
 }

@@ -81,8 +81,8 @@ public class DefaultControllerAdvice {
         return new RedirectView(request.getRequestURI().toString());
     }
 
-    @ExceptionHandler(RemocaoDepartamentoGerenteException.class)
-    public RedirectView handleRemocaoDepartamentoGerenteException(RemocaoDepartamentoGerenteException ex,
+    @ExceptionHandler(EntidadeAssociadaException.class)
+    public RedirectView handleRemocaoDepartamentoGerenteException(EntidadeAssociadaException ex,
         RedirectAttributes reAtt, HttpServletRequest request) {
         
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
@@ -94,8 +94,8 @@ public class DefaultControllerAdvice {
         return new RedirectView(uri);
     }
 
-    @ExceptionHandler(CampoDisponivelVazioException.class)
-    public RedirectView handleCampoDisponivelVazioException(CampoDisponivelVazioException ex,
+    @ExceptionHandler(CampoVazioException.class)
+    public RedirectView handleCampoDisponivelVazioException(CampoVazioException ex,
         RedirectAttributes reAtt, HttpServletRequest request) {
         
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");

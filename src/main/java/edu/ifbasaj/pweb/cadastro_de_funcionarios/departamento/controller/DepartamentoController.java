@@ -88,7 +88,7 @@ public class DepartamentoController {
         service.remove(id);
 
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-sucess");
-        reAtt.addFlashAttribute("messageText", "Removido com sucesso.");
+        reAtt.addFlashAttribute("messageText", "O departamento foi removido com sucesso.");
 
         return "redirect:/departamento/gerenciar_departamento";
     }
