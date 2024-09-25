@@ -22,8 +22,9 @@
                         <li th:text="'Nome: ' + ${funcionario.nome}"></li>
                         <li th:if="${funcionario.cargo != null}" th:text="'Cargo: ' + ${funcionario.cargo.nome}"></li>
                         <li th:if="${funcionario.cargo == null}">Sem cargo</li>
-                        <li th:text="'E-mail: ' + ${funcionario.email}"></li>
                         <li th:text="'CPF: ' + ${funcionario.cpf}"></li>
+                        <li th:if="${funcionario.endereco != null}" th:text="'Endereço: ' + ${funcionario.endereco.logradouro}"></li>
+                        <li th:if="${funcionario.endereco == null}">Sem endereço</li>
                     </ul>
 
                     <div class="fun-profile-actions">

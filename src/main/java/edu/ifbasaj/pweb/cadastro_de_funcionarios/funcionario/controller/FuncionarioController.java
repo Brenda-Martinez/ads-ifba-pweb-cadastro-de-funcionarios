@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.service.CargoService;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.service.DepartamentoService;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.endereco.service.EnderecoService;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.FuncionarioDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.FuncionarioService;
 import jakarta.validation.Valid;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequiredArgsConstructor
 public class FuncionarioController {
 
+    private final EnderecoService enderecoService;
     private final CargoService cargoService;
     private final DepartamentoService departamentoService;
     private final FuncionarioService service;
@@ -33,6 +35,7 @@ public class FuncionarioController {
     @GetMapping({"cadastrar_funcionario", ""})
     String getPageCadastrarFuncionario(Model model){
         
+        model.addAttribute("enderecos", enderecoService.findAll().block());
         model.addAttribute("cargos", cargoService.findAll());
         model.addAttribute("departamentos", departamentoService.findAll());
         model.addAttribute("funcionarioDTO", new FuncionarioDTO());
@@ -47,6 +50,7 @@ public class FuncionarioController {
         model.addAttribute("funcionarioLista", funcionarioLista);
         
         if(id != null){
+            model.addAttribute("enderecos", enderecoService.findAll().block());
             model.addAttribute("cargos", cargoService.findAll());
             model.addAttribute("departamentos", departamentoService.findAll());
             model.addAttribute("funcionarioSelecionado", service.findById(UUID.fromString(id)).get());

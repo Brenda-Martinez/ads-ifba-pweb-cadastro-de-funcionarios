@@ -30,11 +30,13 @@ public abstract class FuncionarioMapper {
 
     @Autowired
     private DepartamentoRepository departamentoRepository;
+
     
     @Mapping(target = "cargo", expression = "java( toCargoDTO(source.getCargo()) )")
     @Mapping(target = "departamento", expression = "java( toDepartamentoDTO(source.getDepartamento()) )")
     @Mapping(target = "cargoId", source = "source.cargo.id")
     @Mapping(target = "departamentoId", source = "source.departamento.id")
+    @Mapping(target = "endereco", ignore = true)
     public abstract FuncionarioDTO toFuncionarioDTO(Funcionario source);
     
     @Mapping(target = "cargo", expression = "java( toCargo(source.getCargoId()))")

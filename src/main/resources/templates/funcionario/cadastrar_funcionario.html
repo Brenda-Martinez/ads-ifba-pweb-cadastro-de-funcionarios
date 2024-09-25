@@ -63,7 +63,7 @@
                                 th:value="${departamento.id}" 
                                 th:text="${departamento.nome}">
                         </option>
-                        <option th:if="${#lists.isEmpty(cargos)}" value="" disabled>Sem departamentos cadastrados</option>
+                        <option th:if="${#lists.isEmpty(cargos)}" value="" disabled>Nenhum departamento cadastrado</option>
                     </select>
                 </div>
 
@@ -75,7 +75,19 @@
                                 th:value="${cargo.id}" 
                                 th:text="${cargo.nome}">
                         </option>
-                        <option th:if="${#lists.isEmpty(cargos)}" value="" disabled>Sem cargos cadastrados</option>
+                        <option th:if="${#lists.isEmpty(cargos)}" value="" disabled>Nenhum cargo cadastrado</option>
+                    </select>
+                </div>
+
+                <div class="fun-field">
+                    <label for="endereco"> Endereco: </label>
+                    <select id="endereco" th:field="*{enderecoId}">
+                        <option value="" selected>Sem endereço</option>
+                        <option th:each="endereco : ${enderecos}" 
+                                th:value="${endereco.id}" 
+                                th:text="${endereco.logradouro}">
+                        </option>
+                        <option th:if="${#lists.isEmpty(enderecos)}" value="" disabled>Nenhum endereço foi encontrado</option>
                     </select>
                 </div>
 

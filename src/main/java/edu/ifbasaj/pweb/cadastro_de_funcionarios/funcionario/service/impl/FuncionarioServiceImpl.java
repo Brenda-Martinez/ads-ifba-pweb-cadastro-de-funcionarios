@@ -12,6 +12,7 @@ import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.Funcionar
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.repository.FuncionarioRepository;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.FuncionarioService;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.utils.ServiceUtils;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.endereco.service.EnderecoService;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.CampoVazioException;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.exceptions.EntidadeAssociadaException;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,6 +25,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     private final FuncionarioRepository repository;
     private final FuncionarioMapper mapper;
     private final ServiceUtils utils;
+    private final EnderecoService enderecoService;
     
     @Override
     public Optional<FuncionarioDTO> create(FuncionarioDTO funcionarioDTO) {
@@ -69,7 +71,15 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         List<FuncionarioDTO> dtoList = new ArrayList<>();
 
         entityList.forEach( (entity) -> {
-            dtoList.add(mapper.toFuncionarioDTO(entity));
+
+            var dto = mapper.toFuncionarioDTO(entity);
+
+            if(dto.getEnderecoId() != null){
+                var response = enderecoService.findById(dto.getEnderecoId());
+                dto.setEndereco(response.block());
+            }
+            
+            dtoList.add(dto);
         });
 
         return dtoList;
@@ -84,7 +94,14 @@ public class FuncionarioServiceImpl implements FuncionarioService {
             throw new EntityNotFoundException("Não foi possível encontrar este usuário no sistema.");
         }
 
-        return Optional.of(mapper.toFuncionarioDTO(funcionarioSalvo.get()));
+        var dto = mapper.toFuncionarioDTO(funcionarioSalvo.get());
+
+        if(dto.getEnderecoId() != null){
+            var response = enderecoService.findById(dto.getEnderecoId());
+            dto.setEndereco(response.block());
+        }
+
+        return Optional.of(dto);
     }
 
     @Override

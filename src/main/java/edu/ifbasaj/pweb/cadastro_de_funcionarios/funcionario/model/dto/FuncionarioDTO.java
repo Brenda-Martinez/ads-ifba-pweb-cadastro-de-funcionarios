@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.model.dto.CargoDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.dto.DepartamentoDTO;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.endereco.model.EnderecoDTO;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -55,6 +56,6 @@ public class FuncionarioDTO {
     private UUID departamentoId;
     private DepartamentoDTO departamento;
 
-
-    /* private Endereco endereco; */
+    private Long enderecoId;
+    private EnderecoDTO endereco;
 }

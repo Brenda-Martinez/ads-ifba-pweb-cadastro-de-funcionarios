@@ -76,6 +76,18 @@
         </div>
 
         <div class="fun-field">
+            <label for="endereco"> Endereco: </label>
+            <select id="endereco" th:field="*{enderecoId}">
+                <option value="" selected>Sem endereço</option>
+                <option th:each="endereco : ${enderecos}" 
+                        th:value="${endereco.id}" 
+                        th:text="${endereco.logradouro}">
+                </option>
+                <option th:if="${#lists.isEmpty(enderecos)}" value="" disabled>Nenhum endereço foi encontrado</option>
+            </select>
+        </div>
+
+        <div class="fun-field">
             <label for="ativo" form="form-funcionario"> Status: </label>
             <select name="ativo" id="ativo">
                 <option value="1">Ativo</option>

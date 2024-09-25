@@ -45,5 +45,6 @@ public class Funcionario {
     @ManyToOne
     private Departamento departamento;
     
-    /* Endereco endereco; */
+    @Column(name = "endereco_id")
+    private Long enderecoId;
 }
