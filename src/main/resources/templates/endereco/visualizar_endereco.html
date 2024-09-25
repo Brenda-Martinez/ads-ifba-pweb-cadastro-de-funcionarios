@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endereços</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script defer src="/scripts/script.js"></script>
+</head>
+<body>
+    <div class="fun-app">
+
+        <header class="fun-header" th:insert="~{fragments/nav :: nav}"></header>
+        
+        <main class="fun-main">
+
+            <ul th:if="${!#lists.isEmpty(enderecos)}" class="fun-profile-list">
+                <li class="fun-profile" th:each="endereco : ${enderecos}">
+
+                    <ul class="fun-profile-info">
+                        <li th:if="${endereco.logradouro != null}" th:text="'Logradouro: ' + ${endereco.logradouro}"></li>
+                        <li th:if="${endereco.logradouro == null}">Sem logradouro</li>
+
+                        <li th:if="${endereco.numero != null}" th:text="'Número: ' + ${endereco.numero}"></li>
+                        <li th:if="${endereco.numero == null}">Sem número</li>
+
+                        <li th:if="${endereco.complemento != null}" th:text="'Complemento: ' + ${endereco.complemento}"></li>
+                        <li th:if="${endereco.complemento == null}">Sem complemento</li>
+
+                        <li th:if="${endereco.cidade != null}" th:text="'Cidade: ' + ${endereco.cidade}"></li>
+                        <li th:if="${endereco.cidade == null}">Sem cidade</li>
+
+                        <li th:if="${endereco.bairro != null}" th:text="'Bairro: ' + ${endereco.bairro}"></li>
+                        <li th:if="${endereco.bairro == null}">Sem bairro</li>
+
+                        <li th:if="${endereco.estado != null}" th:text="'Estado: ' + ${endereco.estado}"></li>
+                        <li th:if="${endereco.estado == null}">Sem estado</li>
+
+                        <li th:if="${endereco.cep != null}" th:text="'CEP: ' + ${endereco.cep}"></li>
+                        <li th:if="${endereco.cep == null}">Sem CEP</li>
+
+                        <li th:if="${endereco.pais != null}" th:text="'País: ' + ${endereco.pais}"></li>
+                        <li th:if="${endereco.pais == null}">Sem país</li>
+                    </ul>
+
+                </li>  
+            </ul>
+
+            <div th:if="${#lists.isEmpty(enderecos) && messageStyle == null}" class="fun-message fun-sucess">
+                <p>Não foi encontrado nenhum endereço.</p>
+            </div>
+        
+        </main>
+    
+    </div>
+</body>
+</html>
