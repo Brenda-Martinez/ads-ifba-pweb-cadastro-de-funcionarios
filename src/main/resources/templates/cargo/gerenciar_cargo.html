@@ -3,6 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Funcionarios</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../corona-free/src/assets/css/style.css">
+    <link rel="stylesheet" href="../corona-free/src/assets/css/style.css">
+    <link rel="stylesheet" href="../corona-free/src/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../corona-free/src/assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../corona-free/src/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../corona-free/src/assets/vendors/font-awesome/css/font-awesome.min.css">
+    <script defer src="../scripts/script.js"></script>
+
+    <link rel="shortcut icon" href="../img/ifba_logo.png" />
+
+    <style>
+        /* Sobrescreve a cor de foco */
+        .form-control:focus {
+            border-color: #7a00dd !important; /* Verde */
+            box-shadow: 0 0 0 0.2rem rgba(73, 0, 122, 0.25) !important; /* Sombra verde clara */
+        }
+    </style>
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- partial:../../partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+            <a class="sidebar-brand brand-logo" href="../index"><img src="../img/ifba_logo_extended_v2.png" alt="logo" /></a>
+            <a class="sidebar-brand brand-logo-mini" href="../index"><img src="/img/ifba_logo.png" alt="logo" /></a>
+          </div>
+          <ul class="nav">
+            <li class="nav-item profile">
+              <div class="profile-desc">
+                <div class="profile-pic">
+                  <div class="count-indicator">
+                    <img class="img-xs rounded-circle " src="..\img\fun_icon.png" alt="">
+                    <span class="count bg-success"></span>
+                  </div>
+                  <div class="profile-name">
+                    <h5 class="mb-0 font-weight-normal">ADMIN</h5>
+                    <span>Administrador</span>
+                  </div>
+                </div>
+                <a href="#" id="profile-dropdown" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+                <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
+                  <a href="#" class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                      <div class="preview-icon bg-dark rounded-circle">
+                        <i class="mdi mdi-cog text-primary"></i>
+                      </div>
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
+                    </div>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                      <div class="preview-icon bg-dark rounded-circle">
+                        <i class="mdi mdi-onepassword  text-info"></i>
+                      </div>
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item nav-category">
+              <span class="nav-link">Administração de Funcionarios</span>
+            </li>
+            <li class="nav-item menu-items">
+              <a class="nav-link" data-bs-toggle="collapse" href="#funcionarios" aria-expanded="false" aria-controls="funcionarios">
+                <span class="menu-icon">
+                  <i class="mdi mdi-account-multiple"></i>
+                </span>
+                <span class="menu-title">Funcionarios</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="funcionarios">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../funcionario/cadastrar_funcionario">Cadastrar</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../funcionario/gerenciar_funcionario">Gerenciar</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item menu-items">
+                <a class="nav-link" data-bs-toggle="collapse" href="#cargos" aria-expanded="false" aria-controls="cargos">
+                  <span class="menu-icon">
+                    <i class="mdi mdi-clipboard-account"></i>
+                  </span>
+                  <span class="menu-title">Cargos</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="cargos">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="../cargo/cadastrar_cargo">Cadastrar</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="../cargo/gerenciar_cargo">Gerenciar</a></li>
+                  </ul>
+                </div>
+            </li>
+            <li class="nav-item menu-items">
+                <a class="nav-link" data-bs-toggle="collapse" href="#departamentos" aria-expanded="false" aria-controls="departamentos">
+                  <span class="menu-icon">
+                    <i class="mdi mdi-briefcase"></i>
+                  </span>
+                  <span class="menu-title">Departamentos</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="departamentos">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="../departamento/cadastrar_departamento">Cadastrar</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="../departamento/gerenciar_departamento">Gerenciar</a></li>
+                  </ul>
+                </div>
+            </li>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="../endereco/visualizar_endereco">
+                  <span class="menu-icon">
+                    <i class="mdi mdi-pin"></i>
+                  </span>
+                  <span class="menu-title">Endereços</span>
+                  <i class="menu-arrow"></i>
+                </a>
+              </li>
+              <li class="nav-item menu-items">
+                <a class="nav-link" href="../h2-console">
+                  <span class="menu-icon">
+                    <i class="mdi mdi-database"></i>
+                  </span>
+                  <span class="menu-title">Base de Dados</span>
+                  <i class="menu-arrow"></i>
+                </a>
+              </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+          <!-- partial:../../partials/_navbar.html -->
+          <nav class="navbar p-0 fixed-top d-flex flex-row">
+            <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+              <a class="navbar-brand brand-logo-mini" href="index"><img src="../img/ifba_logo.png" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+              <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                <span class="mdi mdi-menu"></span>
+              </button>
+              <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                <span class="mdi mdi-format-line-spacing"></span>
+              </button>
+            </div>
+          </nav>
+          <!-- partial -->
+          <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="fun-app">
+
+                    <header class="fun-header" th:insert="~{fragments/nav :: nav}" style="visibility: hidden;"></header>
+                    
+                    <main class="fun-main">
+
+                        <div th:if="${#lists.isEmpty(cargoLista)}" class="fun-profile-list"> Não há cargos cadastrados.</div>
+            
+                        <ul th:if="${!#lists.isEmpty(cargoLista)}" class="fun-profile-list">
+                            <li class="fun-profile" th:each="cargo : ${cargoLista}">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <ul class="fun-profile-info">
+                                            <li hidden th:text="'ID: ' + ${cargo.id}"></li>
+                    
+                                            <li th:if="${cargo.nome != null}" th:text="${cargo.nome}" class="display-4 font-weight-bold card-header"></li>
+                                            <li th:if="${cargo.nome == null}">Sem nome</li>
+                    
+                                            <li th:if="${cargo.descricao != ''}" th:text="'Descrição: ' + ${cargo.descricao}"></li>
+                                            <li th:if="${cargo.descricao == ''}">Sem descrição</li>
+                    
+                                            <li th:if="${cargo.salarioBase != null}" th:text="'Salário base: ' + ${cargo.salarioBase}"></li>
+                                            <li th:if="${cargo.salarioBase == null}">Sem salário base</li>
+                    
+                                        </ul>
+                                    </div>
+                                </div>
+            
+                                <div class="fun-profile-actions">
+            
+                                    <form th:action="@{/cargo/gerenciar_cargo/{id} (id=${cargo.id})}"
+                                        th:method="GET">
+            
+                                        <button type="submit" class="btn btn-outline-info">SELECIONAR</button>  
+                                    </form>
+            
+                                    <form th:action="@{/cargo/gerenciar_cargo/{id} (id=${cargo.id})}"
+                                        th:method="POST">
+            
+                                        <input type="hidden" name="_method" value="DELETE">
+            
+                                        <button type="submit" class="btn btn-outline-danger">REMOVER</button>  
+                                    </form>
+                                      
+                                </div>
+            
+                            </li>  
+                        </ul>
+            
+                        <div class="fun-edit-form" th:if="${cargoSelecionado != null}"
+                            th:insert="~{fragments/edit_form_cargo :: edit_form_cargo}"></div>
+            
+                        <div th:if="${messageStyle == 'fun-message fun-sucess'}" th:class="${messageStyle}">
+                            <p th:text="${messageText}"></p>
+                        </div>
+            
+                        <div th:if="${messageStyle == 'fun-message fun-error'}" th:class="${messageStyle}">
+                            <ul th:if="${messageText}">
+                                <li th:each="error : ${messageText}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                    
+                    </main>
+                
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+            <footer class="footer">
+              <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024 <a href="https://www.bootstrapdash.com/" target="_blank" style="color: rgb(125, 0, 228);">BootstrapDash</a>. All rights reserved.</span>
+                <span class="text-muted float-none float-sm-end d-block mt-1 mt-sm-0 text-center"> <span class="text-muted float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span> <i class="mdi mdi-heart text-danger"></i></span>
+              </div>
+            </footer>
+            <!-- partial -->
+          </div>
+          <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+      </div>
+      <!-- container-scroller -->
+      <!-- plugins:js -->
+      <script src="../corona-free/src/assets/vendors/js/vendor.bundle.base.js"></script>
+      <!-- endinject -->
+      <!-- Plugin js for this page -->
+      <script src="../corona-free/src/assets/vendors/progressbar.js/progressbar.min.js"></script>
+      <script src="../corona-free/src/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+      <script src="../corona-free/src/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+      <!-- End plugin js for this page -->
+      <!-- inject:js -->
+      <script src="../corona-free/src/assets/js/off-canvas.js"></script>
+      <script src="../corona-free/src/assets/js/misc.js"></script>
+      <script src="../corona-free/src/assets/js/settings.js"></script>
+      <script src="../corona-free/src/assets/js/todolist.js"></script>
+      <!-- endinject -->
+      <!-- Custom js for this page -->
+      <script src="/corona-free/src/assets/js/dashboard.js"></script>
+      <!-- End custom js for this page -->
+</body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Cargo</title>
 
     <link rel="stylesheet" href="/css/style.css">
@@ -74,3 +336,4 @@
     </div>
 </body>
 </html>
+-->
