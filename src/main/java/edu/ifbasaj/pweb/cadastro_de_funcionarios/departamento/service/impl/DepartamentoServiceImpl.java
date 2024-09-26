@@ -3,8 +3,6 @@ package edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.service.impl;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.UUID;
-
 
 import org.springframework.stereotype.Service;
 
@@ -39,7 +37,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             "já existem funcionários disponíveis no sistema.");
         }
 
-        var depGerenciado = utils.funcionarioGerenciaDeparamento(departamentoDTO.getGerenteId());
+        var depGerenciado = utils.funcionarioGerenciaDepartamento(departamentoDTO.getGerenteId());
 
         if (depGerenciado.isPresent()) {
             throw new GerenteJaAssociadoException(depGerenciado.get().getGerente().getNome(),
@@ -66,7 +64,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     }
 
     @Override
-    public Optional<DepartamentoDTO> findById(UUID id) {
+    public Optional<DepartamentoDTO> findById(Long id) {
         
         var departamentoSalvo = repository.findById(id);
 
@@ -78,7 +76,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
     }
 
     @Override
-    public void remove(UUID id) {
+    public void remove(Long id) {
         
         findById(id).get();
 
@@ -97,7 +95,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
         
         findById(departamentoDTO.getId());
     
-        var depGerenciado = utils.funcionarioGerenciaDeparamento(departamentoDTO.getGerenteId());
+        var depGerenciado = utils.funcionarioGerenciaDepartamento(departamentoDTO.getGerenteId());
 
         if (depGerenciado.isPresent()) {
             throw new GerenteJaAssociadoException(depGerenciado.get().getGerente().getNome(),

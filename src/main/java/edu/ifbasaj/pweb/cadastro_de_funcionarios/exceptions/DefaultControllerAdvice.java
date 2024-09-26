@@ -22,6 +22,12 @@ public class DefaultControllerAdvice {
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
         reAtt.addFlashAttribute("messageText", ex.getMessage());
 
+        String uri = request.getRequestURI().toString();
+
+        if(uri.contains("api")){
+            return new RedirectView("/index");
+        }
+
         return new RedirectView(request.getRequestURI().toString());
     }
 
@@ -67,6 +73,12 @@ public class DefaultControllerAdvice {
 
         reAtt.addFlashAttribute("messageStyle", "fun-message fun-error");
         reAtt.addFlashAttribute("messageText", erros);
+
+        String uri = request.getRequestURI().toString();
+
+        if(uri.contains("api")){
+            return new RedirectView("/index");
+        }
 
         return new RedirectView(request.getRequestURI().toString());
     }

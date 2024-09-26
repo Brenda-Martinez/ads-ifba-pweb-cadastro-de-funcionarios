@@ -1,6 +1,5 @@
 package edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.mapper;
 
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

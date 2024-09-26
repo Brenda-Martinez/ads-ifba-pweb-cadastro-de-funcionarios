@@ -3,7 +3,6 @@ package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.impl;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -86,7 +85,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public Optional<FuncionarioDTO> findById(UUID id) {
+    public Optional<FuncionarioDTO> findById(Long id) {
         
         var funcionarioSalvo = repository.findById(id);
 
@@ -105,10 +104,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public void remove(UUID id) {
+    public void remove(Long id) {
         
         var funcionarioDTO = findById(id).get();
-        var departamento = utils.funcionarioGerenciaDeparamento(id);
+        var departamento = utils.funcionarioGerenciaDepartamento(id);
 
         if(departamento.isPresent()){
             throw new EntidadeAssociadaException("Não foi possível remover " + funcionarioDTO.getNome()

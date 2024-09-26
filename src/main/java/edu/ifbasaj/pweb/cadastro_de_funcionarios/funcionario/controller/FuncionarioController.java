@@ -1,7 +1,5 @@
 package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.controller;
 
-import java.util.UUID;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,14 +51,14 @@ public class FuncionarioController {
             model.addAttribute("enderecos", enderecoService.findAll().block());
             model.addAttribute("cargos", cargoService.findAll());
             model.addAttribute("departamentos", departamentoService.findAll());
-            model.addAttribute("funcionarioSelecionado", service.findById(UUID.fromString(id)).get());
+            model.addAttribute("funcionarioSelecionado", service.findById(Long.parseLong(id)).get());
         }
 
         return "funcionario/gerenciar_funcionario";
     }
 
     @GetMapping("gerenciar_funcionario/{id}")
-    String getPageEditarFuncionario(@PathVariable UUID id, RedirectAttributes reAtt){
+    String getPageEditarFuncionario(@PathVariable Long id, RedirectAttributes reAtt){
 
         reAtt.addAttribute("id", id);
 
@@ -81,7 +79,7 @@ public class FuncionarioController {
     }
 
     @DeleteMapping("gerenciar_funcionario/{id}")
-    String deleteDataGerenciarFuncionario(@PathVariable UUID id, RedirectAttributes reAtt){
+    String deleteDataGerenciarFuncionario(@PathVariable Long id, RedirectAttributes reAtt){
 
         service.remove(id);
 

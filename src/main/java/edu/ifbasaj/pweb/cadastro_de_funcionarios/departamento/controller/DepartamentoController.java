@@ -1,7 +1,6 @@
 package edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,7 +53,7 @@ public class DepartamentoController {
             List<FuncionarioDTO> funcionarios = funcionarioService.findAll();
             model.addAttribute("funcionarios", funcionarios);
             
-            var departamentoSelecionado = service.findById(UUID.fromString(id)).get();
+            var departamentoSelecionado = service.findById(Long.parseLong(id)).get();
             model.addAttribute("departamentoSelecionado", departamentoSelecionado);
         }
 
@@ -62,7 +61,7 @@ public class DepartamentoController {
     }
 
     @GetMapping("gerenciar_departamento/{id}")
-    String getPageEditarDepartamento(@PathVariable UUID id, RedirectAttributes reAtt, Model model){
+    String getPageEditarDepartamento(@PathVariable Long id, RedirectAttributes reAtt, Model model){
 
         reAtt.addAttribute("id", id);
 
@@ -83,7 +82,7 @@ public class DepartamentoController {
     }
 
     @DeleteMapping("gerenciar_departamento/{id}")
-    String deleteDataGerenciarDepartamento(@PathVariable UUID id, RedirectAttributes reAtt){
+    String deleteDataGerenciarDepartamento(@PathVariable Long id, RedirectAttributes reAtt){
 
         service.remove(id);
 

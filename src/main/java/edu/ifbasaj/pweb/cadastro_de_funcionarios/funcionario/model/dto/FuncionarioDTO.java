@@ -1,7 +1,8 @@
 package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto;
 
 import java.time.LocalDate;
-import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.model.dto.CargoDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.dto.DepartamentoDTO;
@@ -17,7 +18,7 @@ import lombok.Data;
 @Data
 public class FuncionarioDTO {
     
-    UUID id;
+    Long id;
 
     @NotEmpty(message = "O nome não pode ser vazio.")
     @Size(min = 3, max = 50, message = "O nome deve conter de 3 a 50 caracteres.")
@@ -50,12 +51,18 @@ public class FuncionarioDTO {
     @NotNull(message = "O status de atividade não pode ser vazio.")
     private Boolean ativo;
 
-    private UUID cargoId;
+    @JsonIgnore
+    private Long cargoId;
+
     private CargoDTO cargo;
     
-    private UUID departamentoId;
+    @JsonIgnore
+    private Long departamentoId;
+
     private DepartamentoDTO departamento;
 
+    @JsonIgnore
     private Long enderecoId;
+
     private EnderecoDTO endereco;
 }

@@ -1,7 +1,6 @@
 package edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.model.entity;
 
 import java.util.List;
-import java.util.UUID;
 
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.entity.Funcionario;
 import jakarta.persistence.Column;
@@ -16,8 +15,8 @@ import lombok.Data;
 @Data
 public class Cargo {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String nome;
 

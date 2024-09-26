@@ -1,7 +1,5 @@
 package edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.controller;
 
-import java.util.UUID;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,14 +39,14 @@ public class CargoController {
         model.addAttribute("cargoLista", cargoLista);
         
         if(id != null){
-            model.addAttribute("cargoSelecionado", service.findById(UUID.fromString(id)).get());
+            model.addAttribute("cargoSelecionado", service.findById(Long.parseLong(id)).get());
         }
 
         return "cargo/gerenciar_cargo";
     }
 
     @GetMapping("gerenciar_cargo/{id}")
-    String getPageEditarCargo(@PathVariable UUID id, RedirectAttributes reAtt){
+    String getPageEditarCargo(@PathVariable Long id, RedirectAttributes reAtt){
 
         reAtt.addAttribute("id", id);
 
@@ -69,7 +67,7 @@ public class CargoController {
     }
 
     @DeleteMapping("gerenciar_cargo/{id}")
-    String deleteDataGerenciarCargo(@PathVariable UUID id, RedirectAttributes reAtt){
+    String deleteDataGerenciarCargo(@PathVariable Long id, RedirectAttributes reAtt){
 
         service.remove(id);
 

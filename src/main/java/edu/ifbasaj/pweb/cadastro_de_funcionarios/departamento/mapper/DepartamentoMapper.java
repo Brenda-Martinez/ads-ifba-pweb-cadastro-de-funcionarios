@@ -1,7 +1,5 @@
 package edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.mapper;
 
-import java.util.UUID;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +17,15 @@ public abstract class DepartamentoMapper {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
-    @Mapping(target = "gerenteId", source = "source.gerente.id")
     @Mapping(target = "gerenteNome", source = "source.gerente.nome")
+    @Mapping(target = "gerenteId", source = "source.gerente.id")
     public abstract DepartamentoDTO toDepartamentoDTO(Departamento source);
 
     @Mapping(target = "gerente", expression = "java( toFuncionario(source.getGerenteId()) )")
     @Mapping(target = "funcionarios", ignore = true)
     public abstract Departamento toDepartamento(DepartamentoDTO source);
 
-    public Funcionario toFuncionario(UUID id){
+    public Funcionario toFuncionario(Long id){
 
         if(id != null){
             return funcionarioRepository.findById(id).get();          

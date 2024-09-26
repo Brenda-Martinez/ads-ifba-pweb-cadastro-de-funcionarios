@@ -2,7 +2,6 @@ package edu.ifbasaj.pweb.cadastro_de_funcionarios.utils;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -33,12 +32,12 @@ public class ServiceUtils {
         return (!funcionarioRepository.findAll().isEmpty()) ? true : false;
     }
 
-    public Boolean salarioMenorQueBase(UUID cargoId, Double salario){
+    public Boolean salarioMenorQueBase(Long cargoId, Double salario){
         var cargo = cargoRepository.findById(cargoId).get();
         return (salario < cargo.getSalarioBase()) ? true : false;
     }
 
-    public List<String> funcionariosEmDepartamento(UUID id){
+    public List<String> funcionariosEmDepartamento(Long id){
         return funcionarioRepository.findAll().stream()
         .filter(fun -> fun.getDepartamento() != null)
         .filter(fun -> fun.getDepartamento().getId().equals(id))
@@ -46,7 +45,7 @@ public class ServiceUtils {
         .collect(Collectors.toList());
     }
 
-    public List<String> funcionariosComCargo(UUID id){
+    public List<String> funcionariosComCargo(Long id){
         return funcionarioRepository.findAll().stream()
         .filter(fun -> fun.getCargo() != null)
         .filter(fun -> fun.getCargo().getId().equals(id))
@@ -54,7 +53,7 @@ public class ServiceUtils {
         .collect(Collectors.toList());
     }
 
-    public Optional<Departamento> funcionarioGerenciaDeparamento(UUID funcionarioId){
+    public Optional<Departamento> funcionarioGerenciaDepartamento(Long funcionarioId){
         var departamento = departamentoRepository.findByGerenteId(funcionarioId);
         if(departamento.isPresent()){
             return departamento;

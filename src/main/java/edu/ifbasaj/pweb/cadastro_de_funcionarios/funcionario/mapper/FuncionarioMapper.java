@@ -1,7 +1,5 @@
 package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.mapper;
 
-import java.util.UUID;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +57,7 @@ public abstract class FuncionarioMapper {
         return null;
     }
 
-    public Departamento toDepartamento(UUID id){
+    public Departamento toDepartamento(Long id){
 
         if(id != null){
             return departamentoRepository.findById(id).get();
@@ -67,7 +65,7 @@ public abstract class FuncionarioMapper {
         return null;
     }
 
-    public Cargo toCargo(UUID id){
+    public Cargo toCargo(Long id){
 
         if(id != null){
             return cargoRepository.findById(id).get();

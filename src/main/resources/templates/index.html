@@ -19,6 +19,17 @@
             <h1 class="fun-main-title">Cadastro de Funcionário</h1>
 
             <p class="fun-main-text">Desenvolvido por Brenda Martinez e Isaque Lima.</p>
+
+            <div th:if="${messageStyle == 'fun-message fun-sucess'}" th:class="${messageStyle}">
+                <p th:text="${messageText}"></p>
+            </div>
+
+            <div th:if="${messageStyle == 'fun-message fun-error'}" th:class="${messageStyle}">
+                <ul th:if="${messageText}">
+                    <li th:each="error : ${messageText}" th:text="${error}"></li>
+                </ul>
+            </div>
+            
         </main>
     
     </div>

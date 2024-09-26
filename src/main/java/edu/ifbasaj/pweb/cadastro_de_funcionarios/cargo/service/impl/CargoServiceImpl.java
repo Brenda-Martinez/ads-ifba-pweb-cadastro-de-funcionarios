@@ -3,7 +3,6 @@ package edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.service.impl;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -55,7 +54,7 @@ public class CargoServiceImpl implements CargoService {
     }
 
     @Override
-    public Optional<CargoDTO> findById(UUID id) {
+    public Optional<CargoDTO> findById(Long id) {
         
         var cargoSalvo = repository.findById(id);
 
@@ -67,7 +66,7 @@ public class CargoServiceImpl implements CargoService {
     }
 
     @Override
-    public void remove(UUID id) {
+    public void remove(Long id) {
         
         findById(id);
         

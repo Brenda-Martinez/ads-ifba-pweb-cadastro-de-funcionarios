@@ -10,19 +10,11 @@ Desenvolvido por Brenda Martinez e Isaque Lis
 - localhost:8080/cargo/gerenciar_cargo
 - localhost:8080/departamento/cadastrar_departamento
 - localhost:8080/departamento/gerenciar_departamento
+- localhost:8080/endereco/visualizar_endereco
+- localhost:8080/funcionario/api/get
 - localhost:8080/h2-console
 
 ### O que falta implementar
-- Regras de Negócio para Persistência de Dados
-    - Campos obrigatórios de entidades sem registros
-    - Salário de Funcionário deve ser igual ou maior ao Salário base de seu cargo
-    
-- Funcionário
-    - API Rest
-    
-- Endereço
-    - WebClient
-
 - Estilização de Telas
 
 ### Requisitos
