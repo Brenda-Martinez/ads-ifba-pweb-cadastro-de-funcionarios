@@ -32,13 +32,11 @@
 
                 <div class="fun-field">
                     <label for="salario" form="form-cargo"> Salário: </label>
-                    <input type="text" id="salarioBase" th:field="*{salarioBase}" placeholder="1000.00">
+                    <input type="number" id="salarioBase" th:field="*{salarioBase}" placeholder="1000.00">
                 </div>
 
                 <button class="fun-submit" type="submit">CADASTRAR</button>
             </form>
-
-
 
             <div th:if="${messageStyle == 'fun-message fun-sucess'}" th:class="${messageStyle}">
                 <p th:text="${messageText}"></p>

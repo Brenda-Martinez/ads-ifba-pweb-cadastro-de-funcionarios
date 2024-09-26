@@ -16,5 +16,6 @@ public class DepartamentoDTO {
     private String descricao;
 
     private Long gerenteId;
+
     private String gerenteNome;
 }
