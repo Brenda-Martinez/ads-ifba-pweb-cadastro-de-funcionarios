@@ -18,7 +18,9 @@
             <ul th:if="${!#lists.isEmpty(enderecos)}" class="fun-profile-list">
                 <li class="fun-profile" th:each="endereco : ${enderecos}">
 
-                    <ul class="fun-profile-info">
+                    <ul class="fun-profile-info-endereco">
+                        <li hidden th:text="'ID: ' + ${endereco.id}"></li>
+
                         <li th:if="${endereco.logradouro != null}" th:text="'Logradouro: ' + ${endereco.logradouro}"></li>
                         <li th:if="${endereco.logradouro == null}">Sem logradouro</li>
 

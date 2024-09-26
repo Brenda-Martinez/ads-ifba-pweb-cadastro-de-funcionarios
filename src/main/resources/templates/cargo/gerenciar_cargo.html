@@ -19,16 +19,24 @@
                 <li class="fun-profile" th:each="cargo : ${cargoLista}">
 
                     <ul class="fun-profile-info">
-                        <li th:text="'Nome: ' + ${cargo.nome}"></li>
+                        <li hidden th:text="'ID: ' + ${cargo.id}"></li>
+
+                        <li th:if="${cargo.nome != null}" th:text="'Nome: ' + ${cargo.nome}"></li>
+                        <li th:if="${cargo.nome == null}">Sem nome</li>
+
                         <li th:if="${cargo.descricao != ''}" th:text="'Descrição: ' + ${cargo.descricao}"></li>
-                        <li th:text="'Salário base: ' + ${cargo.salarioBase}"></li>
+                        <li th:if="${cargo.descricao == ''}">Sem descrição</li>
+
+                        <li th:if="${cargo.salarioBase != null}" th:text="'Salário base: ' + ${cargo.salarioBase}"></li>
+                        <li th:if="${cargo.salarioBase == null}">Sem salário base</li>
+
                     </ul>
                     <div class="fun-profile-actions">
 
                         <form th:action="@{/cargo/gerenciar_cargo/{id} (id=${cargo.id})}"
                             th:method="GET">
 
-                            <button type="submit" class="fun-submit">READ</button>  
+                            <button type="submit" class="fun-submit">SELECIONAR</button>  
                         </form>
 
                         <form th:action="@{/cargo/gerenciar_cargo/{id} (id=${cargo.id})}"
@@ -36,7 +44,7 @@
 
                             <input type="hidden" name="_method" value="DELETE">
 
-                            <button type="submit" class="fun-submit">REMOVE</button>  
+                            <button type="submit" class="fun-submit">REMOVER</button>  
                         </form>
                           
                     </div>

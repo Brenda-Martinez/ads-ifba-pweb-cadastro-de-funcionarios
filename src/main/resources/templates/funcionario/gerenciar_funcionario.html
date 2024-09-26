@@ -19,12 +19,31 @@
                 <li class="fun-profile" th:each="funcionario : ${funcionarioLista}">
 
                     <ul class="fun-profile-info">
-                        <li th:text="'Nome: ' + ${funcionario.nome}"></li>
+                        <li hidden th:text="'ID: ' + ${funcionario.id}"></li>
+
+                        <li th:if="${funcionario.nome != null}" th:text="'Nome: ' + ${funcionario.nome}"></li>
+                        <li th:if="${funcionario.nome == null}">Sem nome</li>
+
                         <li th:if="${funcionario.cargo != null}" th:text="'Cargo: ' + ${funcionario.cargo.nome}"></li>
                         <li th:if="${funcionario.cargo == null}">Sem cargo</li>
-                        <li th:text="'CPF: ' + ${funcionario.cpf}"></li>
+
+                        <li th:if="${funcionario.departamento != null}" th:text="'Departamento: ' + ${funcionario.departamento.nome}"></li>
+                        <li th:if="${funcionario.departamento == null}">Sem departamento</li>
+
+                        <li th:if="${funcionario.cpf != null}" th:text="'CPF: ' + ${funcionario.cpf}"></li>
+                        <li th:if="${funcionario.cpf == null}">Sem CPF</li>
+
+                        <li th:if="${funcionario.email != null}" th:text="'E-Mail: ' + ${funcionario.email}"></li>
+                        <li th:if="${funcionario.email == null}">Sem e-mail</li>
+
+                        <li th:if="${funcionario.telefone != null}" th:text="'Telefone: ' + ${funcionario.telefone}"></li>
+                        <li th:if="${funcionario.telefone == null}">Sem telefone</li>
+
                         <li th:if="${funcionario.endereco != null}" th:text="'Endereço: ' + ${funcionario.endereco.logradouro}"></li>
                         <li th:if="${funcionario.endereco == null}">Sem endereço</li>
+
+                        <li th:if="${funcionario.ativo == true}">Funcionário ativo</li>
+                        <li th:if="${funcionario.ativo != true}">Funcionário não ativo</li>
                     </ul>
 
                     <div class="fun-profile-actions">
@@ -32,7 +51,7 @@
                         <form th:action="@{/funcionario/gerenciar_funcionario/{id} (id=${funcionario.id})}"
                             th:method="GET">
 
-                            <button type="submit" class="fun-submit">READ</button>  
+                            <button type="submit" class="fun-submit">SELECIONAR</button>  
                         </form>
 
                         <form th:action="@{/funcionario/gerenciar_funcionario/{id} (id=${funcionario.id})}"
@@ -40,7 +59,7 @@
 
                             <input type="hidden" name="_method" value="DELETE">
 
-                            <button type="submit" class="fun-submit">REMOVE</button>  
+                            <button type="submit" class="fun-submit">REMOVER</button>  
                         </form>
                           
                     </div>
