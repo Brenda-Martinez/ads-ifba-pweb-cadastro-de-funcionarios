@@ -16,7 +16,7 @@
     flex-wrap: wrap;
     width: 280px;
     border: 1px solid black;
-    text-wrap: nowrap;
+    word-wrap: break-word;
 }
 
 .fun-profile-info {
