@@ -30,10 +30,13 @@ public class FuncionarioAPIRestController {
     @GetMapping("/get/{id}")
     public ResponseEntity<FuncionarioDTO> findById(@PathVariable String id){
 
-        var opt = service.findById(Long.parseLong(id));
-        if(opt.isPresent()){
-            return ResponseEntity.ok().body(opt.get());
-        }
+        try {
+            var opt = service.findById(Long.parseLong(id));
+            if(opt.isPresent()){
+                return ResponseEntity.ok().body(opt.get());
+            }
+
+        } catch (Exception e){}
         
         return ResponseEntity.notFound().build();
     }
