@@ -1,0 +1,55 @@
+.fun-form-size {
+    width: 500px;
+    padding: 20px;
+    background-color: #191c24;
+    border-radius: 5px;
+}
+
+.fun-form-field {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.fun-form-field label {
+    font-size: 15px;
+    text-wrap: nowrap;
+    padding-right: 10px;
+    width:fit-content;
+}
+
+.fun-form-field input, select {
+    border-style: none;
+    border-radius: 2px;
+    background-color: #2a3038;
+    height: 35px;
+    flex-grow: 1;
+    color: white !important;
+    padding-left: 10px;
+}
+
+.fun-form-field input::placeholder {
+    font-weight: 100;
+    color: #747474;
+}
+
+.fun-form-field input[type="date"]{
+    padding-left: 10px;
+    font-weight: 100;
+}
+
+.fun-form-field input[value=""]{
+    color: #747474;
+}
+
+.fun-form-field option[value=""]{
+    color: #747474;
+}
+
+.fun-form-field input:focus, select:focus {
+  
+    border-color: #7a00dd !important;
+    box-shadow: 0 0 0 0.2rem rgba(73, 0, 122, 0.25) !important;
+
+}
+
+

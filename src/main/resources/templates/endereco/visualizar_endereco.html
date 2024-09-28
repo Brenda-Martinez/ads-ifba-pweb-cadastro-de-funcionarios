@@ -16,209 +16,68 @@
 
     <link rel="shortcut icon" href="../img/ifba_logo.png" />
 
-    <style>
-        /* Sobrescreve a cor de foco */
-        .form-control:focus {
-            border-color: #7a00dd !important; /* Verde */
-            box-shadow: 0 0 0 0.2rem rgba(73, 0, 122, 0.25) !important; /* Sombra verde clara */
-        }
-    </style>
 </head>
 <body>
     <div class="container-scroller">
+
         <!-- partial:../../partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-          <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-            <a class="sidebar-brand brand-logo" href="../index"><img src="../img/ifba_logo_extended_v2.png" alt="logo" /></a>
-            <a class="sidebar-brand brand-logo-mini" href="../index"><img src="/img/ifba_logo.png" alt="logo" /></a>
-          </div>
-          <ul class="nav">
-            <li class="nav-item profile">
-              <div class="profile-desc">
-                <div class="profile-pic">
-                  <div class="count-indicator">
-                    <img class="img-xs rounded-circle " src="..\img\fun_icon.png" alt="">
-                    <span class="count bg-success"></span>
-                  </div>
-                  <div class="profile-name">
-                    <h5 class="mb-0 font-weight-normal">ADMIN</h5>
-                    <span>Administrador</span>
-                  </div>
-                </div>
-                <a href="#" id="profile-dropdown" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
-                <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-                  <a href="#" class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-cog text-primary"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-onepassword  text-info"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </li>
-            <li class="nav-item nav-category">
-              <span class="nav-link">Administração de Funcionarios</span>
-            </li>
-            <li class="nav-item menu-items">
-              <a class="nav-link" data-bs-toggle="collapse" href="#funcionarios" aria-expanded="false" aria-controls="funcionarios">
-                <span class="menu-icon">
-                  <i class="mdi mdi-account-multiple"></i>
-                </span>
-                <span class="menu-title">Funcionarios</span>
-                <i class="menu-arrow"></i>
-              </a>
-              <div class="collapse" id="funcionarios">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="../funcionario/cadastrar_funcionario">Cadastrar</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../funcionario/gerenciar_funcionario">Gerenciar</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" data-bs-toggle="collapse" href="#cargos" aria-expanded="false" aria-controls="cargos">
-                  <span class="menu-icon">
-                    <i class="mdi mdi-clipboard-account"></i>
-                  </span>
-                  <span class="menu-title">Cargos</span>
-                  <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="cargos">
-                  <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="../cargo/cadastrar_cargo">Cadastrar</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="../cargo/gerenciar_cargo">Gerenciar</a></li>
-                  </ul>
-                </div>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" data-bs-toggle="collapse" href="#departamentos" aria-expanded="false" aria-controls="departamentos">
-                  <span class="menu-icon">
-                    <i class="mdi mdi-briefcase"></i>
-                  </span>
-                  <span class="menu-title">Departamentos</span>
-                  <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="departamentos">
-                  <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="../departamento/cadastrar_departamento">Cadastrar</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="../departamento/gerenciar_departamento">Gerenciar</a></li>
-                  </ul>
-                </div>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="../endereco/visualizar_endereco">
-                  <span class="menu-icon">
-                    <i class="mdi mdi-pin"></i>
-                  </span>
-                  <span class="menu-title">Endereços</span>
-                  <i class="menu-arrow"></i>
-                </a>
-              </li>
-              <li class="nav-item menu-items">
-                <a class="nav-link" href="../h2-console">
-                  <span class="menu-icon">
-                    <i class="mdi mdi-database"></i>
-                  </span>
-                  <span class="menu-title">Base de Dados</span>
-                  <i class="menu-arrow"></i>
-                </a>
-              </li>
-          </ul>
-        </nav>
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
           <!-- partial:../../partials/_navbar.html -->
-          <nav class="navbar p-0 fixed-top d-flex flex-row">
-            <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-              <a class="navbar-brand brand-logo-mini" href="index"><img src="../img/ifba_logo.png" alt="logo" /></a>
-            </div>
-            <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
-              <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-                <span class="mdi mdi-menu"></span>
-              </button>
-              <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-                <span class="mdi mdi-format-line-spacing"></span>
-              </button>
-            </div>
-          </nav>
+          <div th:replace="~{fragments/navbar :: navbar}"></div>
+          
           <!-- partial -->
           <div class="main-panel">
-            <div class="content-wrapper">
-                <div class="fun-app">
+            <div class="fun-content fun-centralize fun-full-height-scroll">
 
-                    <header class="fun-header" th:insert="~{fragments/nav :: nav}" style="visibility: hidden;"></header>
-                    
-                    <main class="fun-main">
-
-                        <div th:if="${#lists.isEmpty(enderecos)}" class="fun-profile-list"> Não há endereços cadastrados.</div>
+                <div th:if="${#lists.isEmpty(enderecos)}" class="fun-profile-list"> Não há endereços cadastrados.</div>
+    
+                <ul th:if="${!#lists.isEmpty(enderecos)}" class="fun-profile-list">
+                    <li class="fun-profile" th:each="endereco : ${enderecos}">
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="fun-profile-info-endereco">
+                                    <li hidden th:text="'ID: ' + ${endereco.id}"></li>
             
-                        <ul th:if="${!#lists.isEmpty(enderecos)}" class="fun-profile-list">
-                            <li class="fun-profile" th:each="endereco : ${enderecos}">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <ul class="fun-profile-info-endereco">
-                                            <li hidden th:text="'ID: ' + ${endereco.id}"></li>
-                    
-                                            <li th:if="${endereco.logradouro != null}" th:text="'Logradouro: ' + ${endereco.logradouro}"></li>
-                                            <li th:if="${endereco.logradouro == null}">Sem logradouro</li>
-                    
-                                            <li th:if="${endereco.numero != null}" th:text="'Número: ' + ${endereco.numero}"></li>
-                                            <li th:if="${endereco.numero == null}">Sem número</li>
-                    
-                                            <li th:if="${endereco.complemento != null}" th:text="'Complemento: ' + ${endereco.complemento}"></li>
-                                            <li th:if="${endereco.complemento == null}">Sem complemento</li>
-                    
-                                            <li th:if="${endereco.cidade != null}" th:text="'Cidade: ' + ${endereco.cidade}"></li>
-                                            <li th:if="${endereco.cidade == null}">Sem cidade</li>
-                    
-                                            <li th:if="${endereco.bairro != null}" th:text="'Bairro: ' + ${endereco.bairro}"></li>
-                                            <li th:if="${endereco.bairro == null}">Sem bairro</li>
-                    
-                                            <li th:if="${endereco.estado != null}" th:text="'Estado: ' + ${endereco.estado}"></li>
-                                            <li th:if="${endereco.estado == null}">Sem estado</li>
-                    
-                                            <li th:if="${endereco.cep != null}" th:text="'CEP: ' + ${endereco.cep}"></li>
-                                            <li th:if="${endereco.cep == null}">Sem CEP</li>
-                    
-                                            <li th:if="${endereco.pais != null}" th:text="'País: ' + ${endereco.pais}"></li>
-                                            <li th:if="${endereco.pais == null}">Sem país</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                    <li th:if="${endereco.logradouro != null}" th:text="'Logradouro: ' + ${endereco.logradouro}"></li>
+                                    <li th:if="${endereco.logradouro == null}">Sem logradouro</li>
             
-                            </li>  
-                        </ul>
+                                    <li th:if="${endereco.numero != null}" th:text="'Número: ' + ${endereco.numero}"></li>
+                                    <li th:if="${endereco.numero == null}">Sem número</li>
             
-                        <div th:if="${#lists.isEmpty(enderecos) && messageStyle == null}" class="fun-message fun-sucess">
-                            <p>Não foi encontrado nenhum endereço.</p>
+                                    <li th:if="${endereco.complemento != null}" th:text="'Complemento: ' + ${endereco.complemento}"></li>
+                                    <li th:if="${endereco.complemento == null}">Sem complemento</li>
+            
+                                    <li th:if="${endereco.cidade != null}" th:text="'Cidade: ' + ${endereco.cidade}"></li>
+                                    <li th:if="${endereco.cidade == null}">Sem cidade</li>
+            
+                                    <li th:if="${endereco.bairro != null}" th:text="'Bairro: ' + ${endereco.bairro}"></li>
+                                    <li th:if="${endereco.bairro == null}">Sem bairro</li>
+            
+                                    <li th:if="${endereco.estado != null}" th:text="'Estado: ' + ${endereco.estado}"></li>
+                                    <li th:if="${endereco.estado == null}">Sem estado</li>
+            
+                                    <li th:if="${endereco.cep != null}" th:text="'CEP: ' + ${endereco.cep}"></li>
+                                    <li th:if="${endereco.cep == null}">Sem CEP</li>
+            
+                                    <li th:if="${endereco.pais != null}" th:text="'País: ' + ${endereco.pais}"></li>
+                                    <li th:if="${endereco.pais == null}">Sem país</li>
+                                </ul>
+                            </div>
                         </div>
-                    
-                    </main>
-                
+    
+                    </li>  
+                </ul>
+    
+                <div th:if="${#lists.isEmpty(enderecos) && messageStyle == null}" class="fun-message fun-sucess">
+                    <p>Não foi encontrado nenhum endereço.</p>
                 </div>
+                    
             </div>
             <!-- content-wrapper ends -->
-            <!-- partial:../../partials/_footer.html -->
-            <footer class="footer">
-              <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024 <a href="https://www.bootstrapdash.com/" target="_blank" style="color: rgb(125, 0, 228);">BootstrapDash</a>. All rights reserved.</span>
-                <span class="text-muted float-none float-sm-end d-block mt-1 mt-sm-0 text-center"> <span class="text-muted float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span> <i class="mdi mdi-heart text-danger"></i></span>
-              </div>
-            </footer>
+            
             <!-- partial -->
           </div>
           <!-- main-panel ends -->

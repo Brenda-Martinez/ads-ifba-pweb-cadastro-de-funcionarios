@@ -1,5 +1,5 @@
 @import url("reset.css");
-@import url("form_funcionario.css");
+@import url("form.css");
 @import url("message.css");
 @import url("fragments/nav.css");
 @import url("fragments/edit_form.css");
@@ -13,47 +13,67 @@ html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.fun-app {
+.fun-centralize {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
+    row-gap: 5px;
+}
+
+.fun-justify-end {
+    display: flex;
+    justify-content: end;
+}
+
+.fun-content {
+    background-color: black;
+    width: 100%;
+}
+
+.fun-full-height {
     height: 100vh;
 }
 
-.fun-header {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height:min-content;
+.fun-full-height-scroll {
+    min-height: calc(100vh - 70px);
 }
-
-.fun-main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: start;
-    width: 100%;
-    height: 80%;
-    gap: 10px;
-}    
 
 .fun-main-title {
-    font-size: 40px;
-    text-align: center;
-    height: min-content;
     width: 100%;
 }
 
-.fun-main-subtitle {
-    margin-top: 20px;
+.fun-delete-button {
+    display: flex;
+    align-self: start;
+    
+    margin-left: 12px;
+    background-color: transparent;
+
+    border-radius: 2px;
+    width: 20px;
+    height: 20px;
+
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.4s ease all;
+}
+
+
+.fun-delete-x::before{
+  
+    padding: 5px;
+    content: "×";
+    color: white;
     font-size: 18px;
-    text-align: center;
-    height: min-content;
-    width: 100%;
+    font-weight: 400;
 }
 
-.fun-main-text {
-    margin-top: 30px;
-    text-align: center;
-    height: min-content;
-    width: 100%;
+.fun-delete-button:hover {
+    background-color: white;
+}
+
+.fun-delete-button:hover .fun-delete-x::before {
+    color: inherit;
 }

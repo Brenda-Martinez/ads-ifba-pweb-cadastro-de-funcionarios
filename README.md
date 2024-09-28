@@ -2,7 +2,7 @@
 # Cadastro de Funcionários
 Desenvolvido por Brenda Martinez e Isaque Lis
 
-### ENDPOINTS
+### Páginas
 - localhost:8080/index
 - localhost:8080/funcionario/cadastrar_funcionario
 - localhost:8080/funcionario/gerenciar_funcionario
@@ -13,6 +13,9 @@ Desenvolvido por Brenda Martinez e Isaque Lis
 - localhost:8080/endereco/visualizar_endereco
 - localhost:8080/funcionario/api/get
 - localhost:8080/h2-console
+
+### O que falta implementar
+- Estilização de Telas
 
 ### Requisitos
 ![](/diagram.svg)

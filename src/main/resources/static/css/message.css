@@ -7,7 +7,7 @@
     align-items: center;
     
     position: absolute;
-    bottom: 10%;
+    top: 5%;
 
     width: fit-content;
     min-height: 80px;
@@ -16,13 +16,34 @@
     font-weight: 700;
     font-size: 16px;
 
-    border: 1px solid black;
+    border-radius: 4px;
+    z-index: 10000;
+}
+
+@keyframes move {
+    0% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+    
+    40% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+
+
+    100% {
+        opacity: 1;
+        transform: translateY(10%);
+    }
 }
 
 .fun-sucess {
-    background-color: hsla(91, 59%, 69%, 0.75);
+    background-color: rgb(27, 122, 27);
+    animation: move 1.4s ease-in-out forwards; 
 }
 
 .fun-error {
-    background-color: hsl(0, 60%, 69%, 0.75); 
+    background-color: rgba(160, 17, 17);
+    animation: move 1.4s ease-in-out forwards; 
 }
