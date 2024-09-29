@@ -1,57 +1,57 @@
 <div th:fragment="edit_form">
 
-    <form  id="form-editar-funcionario"
-        th:action="@{/funcionario/gerenciar_funcionario}" th:method="post" th:object="${funcionarioSelecionado}">
+    <form id="form-editar-funcionario" class="fun-form" 
+         th:action="@{/funcionario/gerenciar_funcionario}" th:method="post" th:object="${funcionarioSelecionado}">
 
         <input type="hidden" name="_method" value="PUT">
 
-        <h2 class="display-3 fun-centralize" th:text="'Editar ' + ${funcionarioSelecionado.nome}"></h2>
+        <h2 th:text="'Editar ' + ${funcionarioSelecionado.nome}"></h2>
         
         <input type="hidden" id="id" th:field="*{id}" th:value="${funcionarioSelecionado.id}">
         
-        <div class="fun-form-field">
+        <div class="fun-field">
             <label for="nome" form="form-editar-funcionario"> Nome: </label>
             <input type="text" id="nome" placeholder="Fulano da Silva"
                 th:field="*{nome}" th:value="${funcionarioSelecionado.nome}">
         </div>
 
-        <div class="fun-form-field">
+        <div class="fun-field">
             <label for="cpf" form="form-editar-funcionario"> CPF: </label>
             <input type="text" id="cpf" placeholder="000.000.000-00" pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$"
             th:field="*{cpf}" th:value="${funcionarioSelecionado.cpf}">
         </div>
             
-        <div class="fun-form-field">  
+        <div class="fun-field">  
             <label for="email" form="form-editar-funcionario"> E-mail: </label>
             <input type="email" id="email" placeholder="beltrano@exemplo.com"
                 th:field="*{email}" th:value="${funcionarioSelecionado.email}">
         </div>
 
-        <div class="fun-form-field">
+        <div class="fun-field">
             <label for="telefone" form="form-editar-funcionario"> Telefone: </label>
             <input type="text" id="telefone" placeholder="(00) 12345-6789" pattern="^\(\d{2}\) \d{5}-\d{4}$"
                 th:field="*{telefone}" th:value="${funcionarioSelecionado.telefone}">
         </div>
 
-        <div class="fun-form-field">
+        <div class="fun-field">
             <label for="dataNascimento" form="form-editar-funcionario"> Data de Nasc.: </label>
-            <input type="date" id="dataNascimento"
+            <input type="date" id="dataNascimento" 
                 th:field="*{dataNascimento}" th:value="${funcionarioSelecionado.dataNascimento}">
         </div>
 
-        <div class="fun-form-field">
+        <div class="fun-field">
             <label for="dataAdmissao" form="form-editar-funcionario"> Data de Admissão: </label>
-            <input type="date" id="dataAdmissao"
+            <input type="date" id="dataAdmissao" 
             th:field="*{dataAdmissao}" th:value="${funcionarioSelecionado.dataAdmissao}">
         </div>
 
-        <div class="fun-form-field">
+        <div class="fun-field">
             <label for="salario" form="form-editar-funcionario"> Salário: </label>
             <input type="number" id="salario" placeholder="1400.00"
                 th:field="*{salario}" th:value="${funcionarioSelecionado.salario}">
         </div>
 
-        <div class="fun-form-field">
+        <div class="fun-field">
             <label for="departamento"> Departamento: </label>
             <select id="departamento" th:field="*{departamentoId}">
                 <option value="" selected>Sem departamento</option>
@@ -63,7 +63,7 @@
             </select>
         </div>
 
-        <div class="fun-form-field">
+        <div class="fun-field">
             <label for="cargo"> Cargo: </label>
             <select id="cargo" th:field="*{cargoId}">
                 <option value="" selected>Sem cargo</option>
@@ -75,7 +75,7 @@
             </select>
         </div>
 
-        <div class="fun-form-field">
+        <div class="fun-field">
             <label for="endereco"> Endereco: </label>
             <select id="endereco" th:field="*{enderecoId}">
                 <option value="" selected>Sem endereço</option>
@@ -87,7 +87,7 @@
             </select>
         </div>
 
-        <div class="fun-form-field">
+        <div class="fun-field">
             <label for="ativo" form="form-funcionario"> Status: </label>
             <select name="ativo" id="ativo">
                 <option value="1">Ativo</option>
@@ -95,11 +95,8 @@
             </select>
         </div>
 
-        <div class="fun-justify-end">
-            <button class="btn btn-outline-info me-2" type="submit">EDITAR</button>
-        </div>
+        <button class="fun-submit" type="submit">EDITAR</button>
 
     </form>
 
-    <button class="fun-delete-button" onclick="closeMe(this)"><span class="fun-delete-x"></span></button>
 </div>

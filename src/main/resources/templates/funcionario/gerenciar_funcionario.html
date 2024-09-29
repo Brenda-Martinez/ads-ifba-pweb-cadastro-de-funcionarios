@@ -1,136 +1,91 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Funcionarios</title>
+    <title>Gerenciar Funcionário</title>
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../corona-free/src/assets/css/style.css">
-    <link rel="stylesheet" href="../corona-free/src/assets/css/style.css">
-    <link rel="stylesheet" href="../corona-free/src/assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="../corona-free/src/assets/vendors/ti-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="../corona-free/src/assets/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="../corona-free/src/assets/vendors/font-awesome/css/font-awesome.min.css">
-    <script defer src="../scripts/script.js"></script>
-
-    <link rel="shortcut icon" href="../img/ifba_logo.png" />
-
+    <link rel="stylesheet" href="/css/style.css">
+    <script defer src="/scripts/script.js"></script>
 </head>
 <body>
-    <div class="container-scroller">
+    <div class="fun-app">
 
-        <!-- partial:../../partials/_sidebar.html -->
-        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
-
-        <!-- partial -->
-        <div class="container-fluid page-body-wrapper">
-          <!-- partial:../../partials/_navbar.html -->
-          <div th:replace="~{fragments/navbar :: navbar}"></div>
-
-          <!-- partial -->
-          <div class="main-panel">
-            <div class="fun-content fun-centralize fun-full-height-scroll">
-                
-                <div th:if="${#lists.isEmpty(funcionarioLista)}" class="fun-profile-list"> Não há funcionários cadastrados.</div>
-    
-                <ul th:if="${!#lists.isEmpty(funcionarioLista)}" class="fun-profile-list">
-                    <li class="fun-profile" th:each="funcionario : ${funcionarioLista}">
-                        <div class="card">
-                            <div class="card-body">
-                                <ul class="fun-profile-info">
-                                    <li hidden th:text="'ID: ' + ${funcionario.id}"></li>
-            
-                                    <li th:if="${funcionario.nome != null}" th:text="${funcionario.nome}" class="display-4 font-weight-bold card-header"></li>
-                                    <li th:if="${funcionario.nome == null}">Sem nome</li>
-            
-                                    <li th:if="${funcionario.cargo != null}" th:text="'Cargo: ' + ${funcionario.cargo.nome}"></li>
-                                    <li th:if="${funcionario.cargo == null}">Sem cargo</li>
-            
-                                    <li th:if="${funcionario.departamento != null}" th:text="'Departamento: ' + ${funcionario.departamento.nome}"></li>
-                                    <li th:if="${funcionario.departamento == null}">Sem departamento</li>
-            
-                                    <li th:if="${funcionario.cpf != null}" th:text="'CPF: ' + ${funcionario.cpf}"></li>
-                                    <li th:if="${funcionario.cpf == null}">Sem CPF</li>
-            
-                                    <li th:if="${funcionario.email != null}" th:text="'E-Mail: ' + ${funcionario.email}"></li>
-                                    <li th:if="${funcionario.email == null}">Sem e-mail</li>
-            
-                                    <li th:if="${funcionario.telefone != null}" th:text="'Telefone: ' + ${funcionario.telefone}"></li>
-                                    <li th:if="${funcionario.telefone == null}">Sem telefone</li>
-            
-                                    <li th:if="${funcionario.endereco != null}" th:text="'Endereço: ' + ${funcionario.endereco.logradouro}"></li>
-                                    <li th:if="${funcionario.endereco == null}">Sem endereço</li>
-            
-                                    <li th:if="${funcionario.ativo == true}">Funcionário ativo</li>
-                                    <li th:if="${funcionario.ativo != true}">Funcionário não ativo</li>
-                                </ul>
-                            </div>
-
-
-                            <div class="fun-profile-actions">
-    
-                                <form th:action="@{/funcionario/gerenciar_funcionario/{id} (id=${funcionario.id})}"
-                                    th:method="GET">
+        <header class="fun-header" th:insert="~{fragments/nav :: nav}"></header>
         
-                                    <button type="submit" class="btn btn-outline-info">SELECIONAR</button>  
-                                </form>
-        
-                                <form th:action="@{/funcionario/gerenciar_funcionario/{id} (id=${funcionario.id})}"
-                                    th:method="POST">
-        
-                                    <input type="hidden" name="_method" value="DELETE">
-        
-                                    <button type="submit" class="btn btn-outline-danger">REMOVER</button>  
-                                </form>
-                                    
-                            </div>
-                        </div>
-    
-                    </li>  
-                </ul>
-    
-                <div class="fun-edit-form" th:if="${funcionarioSelecionado != null}"
-                    th:include="~{fragments/edit_form :: edit_form}"></div>
-    
-                <div th:if="${messageStyle == 'fun-message fun-sucess'}" th:class="${messageStyle}">
-                    <p th:text="${messageText}"></p>
-                    <button class="fun-delete-button" onclick="closeMe(this)"><span class="fun-delete-x"></span></button>
-                </div>
-    
-                <div th:if="${messageStyle == 'fun-message fun-error'}" th:class="${messageStyle}">
-                    <ul th:if="${messageText}">
-                        <li th:each="error : ${messageText}" th:text="${error}"></li>
+        <main class="fun-main">
+
+            <ul th:if="${!#lists.isEmpty(funcionarioLista)}" class="fun-profile-list">
+                <li class="fun-profile" th:each="funcionario : ${funcionarioLista}">
+
+                    <ul class="fun-profile-info">
+                        <li hidden th:text="'ID: ' + ${funcionario.id}"></li>
+
+                        <li th:if="${funcionario.nome != null}" th:text="'Nome: ' + ${funcionario.nome}"></li>
+                        <li th:if="${funcionario.nome == null}">Sem nome</li>
+
+                        <li th:if="${funcionario.cargo != null}" th:text="'Cargo: ' + ${funcionario.cargo.nome}"></li>
+                        <li th:if="${funcionario.cargo == null}">Sem cargo</li>
+
+                        <li th:if="${funcionario.departamento != null}" th:text="'Departamento: ' + ${funcionario.departamento.nome}"></li>
+                        <li th:if="${funcionario.departamento == null}">Sem departamento</li>
+
+                        <li th:if="${funcionario.cpf != null}" th:text="'CPF: ' + ${funcionario.cpf}"></li>
+                        <li th:if="${funcionario.cpf == null}">Sem CPF</li>
+
+                        <li th:if="${funcionario.email != null}" th:text="'E-Mail: ' + ${funcionario.email}"></li>
+                        <li th:if="${funcionario.email == null}">Sem e-mail</li>
+
+                        <li th:if="${funcionario.telefone != null}" th:text="'Telefone: ' + ${funcionario.telefone}"></li>
+                        <li th:if="${funcionario.telefone == null}">Sem telefone</li>
+
+                        <li th:if="${funcionario.endereco != null}" th:text="'Endereço: ' + ${funcionario.endereco.logradouro}"></li>
+                        <li th:if="${funcionario.endereco == null}">Sem endereço</li>
+
+                        <li th:if="${funcionario.ativo == true}">Funcionário ativo</li>
+                        <li th:if="${funcionario.ativo != true}">Funcionário não ativo</li>
                     </ul>
-                    <button class="fun-delete-button" onclick="closeMe(this)"><span class="fun-delete-x"></span></button>
-                </div>
-                  
+
+                    <div class="fun-profile-actions">
+
+                        <form th:action="@{/funcionario/gerenciar_funcionario/{id} (id=${funcionario.id})}"
+                            th:method="GET">
+
+                            <button type="submit" class="fun-submit">SELECIONAR</button>  
+                        </form>
+
+                        <form th:action="@{/funcionario/gerenciar_funcionario/{id} (id=${funcionario.id})}"
+                            th:method="POST">
+
+                            <input type="hidden" name="_method" value="DELETE">
+
+                            <button type="submit" class="fun-submit">REMOVER</button>  
+                        </form>
+                          
+                    </div>
+
+                </li>  
+            </ul>
+
+            <div class="fun-edit-form" th:if="${funcionarioSelecionado != null}"
+                th:insert="~{fragments/edit_form :: edit_form}"></div>
+
+            <div th:if="${#lists.isEmpty(funcionarioLista) && messageStyle == null}" class="fun-message fun-sucess">
+                <p>Não há funcionários cadastrados no sistema.</p>
             </div>
-            <!-- content-wrapper ends -->
+
+            <div th:if="${messageStyle == 'fun-message fun-sucess'}" th:class="${messageStyle}">
+                <p th:text="${messageText}"></p>
+            </div>
+
+            <div th:if="${messageStyle == 'fun-message fun-error'}" th:class="${messageStyle}">
+                <ul th:if="${messageText}">
+                    <li th:each="error : ${messageText}" th:text="${error}"></li>
+                </ul>
+            </div>
         
-            <!-- partial -->
-          </div>
-          <!-- main-panel ends -->
-        </div>
-        <!-- page-body-wrapper ends -->
-      </div>
-      <!-- container-scroller -->
-      <!-- plugins:js -->
-      <script src="../corona-free/src/assets/vendors/js/vendor.bundle.base.js"></script>
-      <!-- endinject -->
-      <!-- Plugin js for this page -->
-      <script src="../corona-free/src/assets/vendors/progressbar.js/progressbar.min.js"></script>
-      <script src="../corona-free/src/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
-      <script src="../corona-free/src/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-      <!-- End plugin js for this page -->
-      <!-- inject:js -->
-      <script src="../corona-free/src/assets/js/off-canvas.js"></script>
-      <script src="../corona-free/src/assets/js/misc.js"></script>
-      <script src="../corona-free/src/assets/js/settings.js"></script>
-      <script src="../corona-free/src/assets/js/todolist.js"></script>
-      <!-- endinject -->
-      <!-- Custom js for this page -->
-      <script src="/corona-free/src/assets/js/dashboard.js"></script>
-      <!-- End custom js for this page -->
+        </main>
+    
+    </div>
 </body>
 </html>

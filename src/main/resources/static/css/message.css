@@ -7,7 +7,7 @@
     align-items: center;
     
     position: absolute;
-    top: 5%;
+    bottom: 10%;
 
     width: fit-content;
     min-height: 80px;
@@ -16,34 +16,13 @@
     font-weight: 700;
     font-size: 16px;
 
-    border-radius: 4px;
-    z-index: 10000;
-}
-
-@keyframes move {
-    0% {
-        opacity: 0;
-        transform: translateY(0);
-    }
-    
-    40% {
-        opacity: 0;
-        transform: translateY(0);
-    }
-
-
-    100% {
-        opacity: 1;
-        transform: translateY(10%);
-    }
+    border: 1px solid black;
 }
 
 .fun-sucess {
-    background-color: rgb(27, 122, 27);
-    animation: move 1.4s ease-in-out forwards; 
+    background-color: hsla(91, 59%, 69%, 0.75);
 }
 
 .fun-error {
-    background-color: rgba(160, 17, 17);
-    animation: move 1.4s ease-in-out forwards; 
+    background-color: hsl(0, 60%, 69%, 0.75); 
 }
