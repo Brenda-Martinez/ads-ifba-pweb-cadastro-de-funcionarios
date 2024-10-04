@@ -58,7 +58,7 @@
                                 <form th:action="@{/cargo/gerenciar_cargo/{id} (id=${cargo.id})}"
                                     th:method="GET">
         
-                                    <button type="submit" class="btn btn-outline-info">SELECIONAR</button>  
+                                    <button type="submit" class="btn btn-outline-info">EDITAR</button>  
                                 </form>
         
                                 <form th:action="@{/cargo/gerenciar_cargo/{id} (id=${cargo.id})}"
@@ -75,9 +75,6 @@
     
                     </li>  
                 </ul>
-    
-                <div class="fun-edit-form" th:if="${cargoSelecionado != null}"
-                    th:include="~{fragments/edit_form_cargo :: edit_form_cargo}"></div>
     
                 <div th:if="${messageStyle == 'fun-message fun-sucess'}" th:class="${messageStyle}">
                     <p th:text="${messageText}"></p>
