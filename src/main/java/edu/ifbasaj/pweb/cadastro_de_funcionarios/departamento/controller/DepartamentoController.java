@@ -19,7 +19,6 @@ import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.Funcionar
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.FuncionarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 @RequestMapping("departamento/")
@@ -47,8 +46,6 @@ public class DepartamentoController {
         var departamentoLista = service.findAll();
         model.addAttribute("departamentoLista", departamentoLista);
 
-        
-
         if (id != null) {
             List<FuncionarioDTO> funcionarios = funcionarioService.findAll();
             model.addAttribute("funcionarios", funcionarios);
@@ -61,11 +58,15 @@ public class DepartamentoController {
     }
 
     @GetMapping("gerenciar_departamento/{id}")
-    String getPageEditarDepartamento(@PathVariable Long id, RedirectAttributes reAtt, Model model){
+    String getPageEditarDepartamento(@PathVariable Long id, Model model){
 
-        reAtt.addAttribute("id", id);
+        List<FuncionarioDTO> funcionarios = funcionarioService.findAll();
 
-        return "redirect:/departamento/gerenciar_departamento";
+        model.addAttribute("funcionarios", funcionarios);
+
+        model.addAttribute("departamentoSelecionado", service.findById(id).orElseThrow(() -> new RuntimeException("Departamento não encontrado")));
+
+        return "departamento/edit_form_departamento";
     }
 
     @PostMapping("cadastrar_departamento")
@@ -92,7 +93,7 @@ public class DepartamentoController {
         return "redirect:/departamento/gerenciar_departamento";
     }
 
-    @PutMapping("gerenciar_departamento")
+    @PostMapping("gerenciar_departamento/{id}")
     String putDataGerenciarDepartamento(@ModelAttribute @Valid DepartamentoDTO departamentoDTO,
         RedirectAttributes reAtt) {
         
