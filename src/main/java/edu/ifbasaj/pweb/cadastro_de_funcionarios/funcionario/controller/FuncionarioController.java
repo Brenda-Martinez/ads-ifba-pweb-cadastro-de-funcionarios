@@ -1,5 +1,7 @@
 package edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,14 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.model.dto.CargoDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.service.CargoService;
+import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.model.dto.DepartamentoDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.departamento.service.DepartamentoService;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.endereco.service.EnderecoService;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.model.dto.FuncionarioDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.funcionario.service.FuncionarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 @RequestMapping("funcionario/")
@@ -58,11 +61,17 @@ public class FuncionarioController {
     }
 
     @GetMapping("gerenciar_funcionario/{id}")
-    String getPageEditarFuncionario(@PathVariable Long id, RedirectAttributes reAtt){
+    String getPageEditarFuncionario(@PathVariable Long id, Model model){
 
-        reAtt.addAttribute("id", id);
+        List<DepartamentoDTO> departamentos = departamentoService.findAll();
+        model.addAttribute("departamentos", departamentos);
+        
+        List<CargoDTO> cargos = cargoService.findAll();
+        model.addAttribute("cargos", cargos);
 
-        return "redirect:/funcionario/gerenciar_funcionario";
+        model.addAttribute("funcionarioSelecionado", service.findById(id).orElseThrow(() -> new RuntimeException("Funcionario nao encontrado")));
+
+        return "funcionario/edit_form";
     }
 
     @PostMapping("cadastrar_funcionario")
@@ -89,7 +98,7 @@ public class FuncionarioController {
         return "redirect:/funcionario/gerenciar_funcionario";
     }
 
-    @PutMapping("gerenciar_funcionario")
+    @PostMapping("gerenciar_funcionario/{id}")
     String putDataGerenciarFuncionario(@ModelAttribute @Valid FuncionarioDTO funcionarioDTO,
         RedirectAttributes reAtt) {
         
