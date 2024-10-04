@@ -33,7 +33,7 @@ public class FuncionarioController {
     @GetMapping({"cadastrar_funcionario", ""})
     String getPageCadastrarFuncionario(Model model){
         
-        model.addAttribute("enderecos", enderecoService.findAll().block());
+        model.addAttribute("enderecos", enderecoService.findAll());
         model.addAttribute("cargos", cargoService.findAll());
         model.addAttribute("departamentos", departamentoService.findAll());
         model.addAttribute("funcionarioDTO", new FuncionarioDTO());
@@ -48,7 +48,7 @@ public class FuncionarioController {
         model.addAttribute("funcionarioLista", funcionarioLista);
         
         if(id != null){
-            model.addAttribute("enderecos", enderecoService.findAll().block());
+            model.addAttribute("enderecos", enderecoService.findAll());
             model.addAttribute("cargos", cargoService.findAll());
             model.addAttribute("departamentos", departamentoService.findAll());
             model.addAttribute("funcionarioSelecionado", service.findById(Long.parseLong(id)).get());

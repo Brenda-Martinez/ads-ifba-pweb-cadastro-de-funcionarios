@@ -20,10 +20,10 @@ public class EnderecoController {
     String getPageGerenciarFuncionario(@RequestParam(value = "id", required = false) String id, Model model){
         
         if(id == null){
-            var enderecoLista = enderecoService.findAll().block();
+            var enderecoLista = enderecoService.findAll();
             model.addAttribute("enderecos", enderecoLista);
         } else {
-            var enderecoLista = enderecoService.findById(Long.parseLong(id)).block();
+            var enderecoLista = enderecoService.findById(Long.parseLong(id));
             model.addAttribute("enderecos", enderecoLista);
         }
 

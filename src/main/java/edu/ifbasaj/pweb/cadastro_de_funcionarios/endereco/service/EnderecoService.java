@@ -18,18 +18,24 @@ public class EnderecoService {
         this.webClient = webClientBuilder.baseUrl("http://localhost:8080").build();
     }
 
-    public Mono<List<EnderecoDTO>> findAll() {
-        return webClient.get()
-            .uri("/endereco/mockapi/get")
-            .retrieve()
-            .bodyToMono(new ParameterizedTypeReference<List<EnderecoDTO>>() {});
+    public List<EnderecoDTO> findAll() {
+
+        Mono<List<EnderecoDTO>> mono = webClient.get()
+        .uri("/endereco/mockapi/get")
+        .retrieve()
+        .bodyToMono(new ParameterizedTypeReference<List<EnderecoDTO>>() {});
+
+        return mono.block();
     }
 
-    public Mono<EnderecoDTO> findById(Long enderecoId) {
-        return webClient.get()
-            .uri("/endereco/mockapi/get/{enderecoId}", enderecoId)
-            .retrieve()
-            .bodyToMono(EnderecoDTO.class);
+    public EnderecoDTO findById(Long enderecoId) {
+
+        Mono<EnderecoDTO> mono = webClient.get()
+        .uri("/endereco/mockapi/get/{enderecoId}", enderecoId)
+        .retrieve()
+        .bodyToMono(EnderecoDTO.class);
+
+        return mono.block();
     }
 
 }

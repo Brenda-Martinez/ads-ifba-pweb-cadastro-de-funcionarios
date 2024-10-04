@@ -75,7 +75,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
             if(dto.getEnderecoId() != null){
                 var response = enderecoService.findById(dto.getEnderecoId());
-                dto.setEndereco(response.block());
+                dto.setEndereco(response);
             }
             
             dtoList.add(dto);
@@ -97,7 +97,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
         if(dto.getEnderecoId() != null){
             var response = enderecoService.findById(dto.getEnderecoId());
-            dto.setEndereco(response.block());
+            dto.setEndereco(response);
         }
 
         return Optional.of(dto);
