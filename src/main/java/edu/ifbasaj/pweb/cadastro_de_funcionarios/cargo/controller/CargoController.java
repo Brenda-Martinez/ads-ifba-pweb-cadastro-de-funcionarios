@@ -15,7 +15,6 @@ import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.model.dto.CargoDTO;
 import edu.ifbasaj.pweb.cadastro_de_funcionarios.cargo.service.CargoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 @RequestMapping("cargo/")
@@ -46,11 +45,9 @@ public class CargoController {
     }
 
     @GetMapping("gerenciar_cargo/{id}")
-    String getPageEditarCargo(@PathVariable Long id, RedirectAttributes reAtt){
-
-        reAtt.addAttribute("id", id);
-
-        return "redirect:/cargo/gerenciar_cargo";
+    String getPageEditarCargo(@PathVariable Long id, Model model) {
+        model.addAttribute("cargoSelecionado", service.findById(id).orElseThrow(() -> new RuntimeException("Cargo não encontrado")));
+        return "cargo/edit_form_cargo";
     }
 
     @PostMapping("cadastrar_cargo")
@@ -77,10 +74,9 @@ public class CargoController {
         return "redirect:/cargo/gerenciar_cargo";
     }
 
-    @PutMapping("gerenciar_cargo")
-    String putDataGerenciarCargo(@ModelAttribute @Valid CargoDTO cargoDTO,
-        RedirectAttributes reAtt) {
-        
+    @PostMapping("gerenciar_cargo/{id}")
+    String putDataGerenciarCargo(@PathVariable Long id, @ModelAttribute @Valid CargoDTO cargoDTO, RedirectAttributes reAtt) {
+        cargoDTO.setId(id);
         var optional = service.update(cargoDTO);
 
         if(optional.isPresent()){
@@ -90,4 +86,5 @@ public class CargoController {
 
         return "redirect:/cargo/gerenciar_cargo";
     }
+
 }
