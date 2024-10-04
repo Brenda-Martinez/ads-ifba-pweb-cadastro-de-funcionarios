@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Funcionarios</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/corona-free/src/assets/css/style.css">
+    <link rel="stylesheet" href="/corona-free/src/assets/css/style.css">
+    <link rel="stylesheet" href="/corona-free/src/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/corona-free/src/assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="/corona-free/src/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="/corona-free/src/assets/vendors/font-awesome/css/font-awesome.min.css">
+    <script defer src="/scripts/script.js"></script>
+
+    <link rel="shortcut icon" href="/img/ifba_logo.png" />
+</head>
+<body>
+    <div class="container-scroller">
+
+      <!-- partial:../../partials/_sidebar.html -->
+      <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_navbar.html -->
+        <div th:replace="~{fragments/navbar :: navbar}"></div>
+        
+          <!-- partial -->
+          <div class="main-panel fun-full-height">
+            <div class="fun-content fun-centralize fun-full-height">
+                
+                <div class="fun-form-size">
+                    
+                    <div class="edit_form_cargo">
+
+                        <form id="form-editar-cargo" class="fun-form forms-sample" 
+                            th:action="@{/cargo/gerenciar_cargo/{id}(id=${cargoSelecionado.id})}" 
+                            th:method="post" 
+                            th:object="${cargoSelecionado}">
+                    
+                            <h2 class="display-3 fun-centralize" th:text="'Editar ' + ${cargoSelecionado.nome}"></h2>
+                            <br>
+                            
+                            <input type="hidden" id="id" th:field="*{id}" th:value="${cargoSelecionado.id}">
+                            
+                            <div class="fun-form-field">
+                                <label for="nome" form="form-editar-cargo"> Nome: </label>
+                                <input type="text" id="nome" placeholder="Assistente de Sistemas"
+                                    th:field="*{nome}" th:value="${cargoSelecionado.nome}">
+                            </div>
+                    
+                            <div class="fun-form-field">
+                                <label for="descricao" form="form-editar-cargo"> Descricao: </label>
+                                <input type="text" id="descricao" placeholder="Atua como..."
+                                    th:field="*{descricao}" th:value="${cargoSelecionado.descricao}">
+                            </div>
+                                
+                            <div class="fun-form-field">
+                                <label for="salarioBase" form="form-editar-cargo"> Salário Base: </label>
+                                <input type="number" id="salarioBase" placeholder="1000.00"
+                                    th:field="*{salarioBase}" th:value="${cargoSelecionado.salarioBase}">
+                            </div>
+                    
+                            <div class="fun-justify-end">
+                                <button class="btn btn-outline-info me-2" type="submit">EDITAR</button>
+                            </div>
+                    
+                        </form>
+                    </div>
+
+                </div>
+    
+                <div th:if="${messageStyle == 'fun-message fun-sucess'}" th:class="${messageStyle}">
+                    <p th:text="${messageText}"></p>
+                    <button class="fun-delete-button" onclick="closeMe(this)"><span class="fun-delete-x"></span></button>
+                </div>
+    
+                <div th:if="${messageStyle == 'fun-message fun-error'}" th:class="${messageStyle}">
+                    <ul th:if="${messageText}">
+                        <li th:each="error : ${messageText}" th:text="${error}"></li>
+                    </ul>
+                    <button class="fun-delete-button" onclick="closeMe(this)"><span class="fun-delete-x"></span></button>
+                </div>
+  
+            </div>
+            <!-- content-wrapper ends -->
+            
+            <!-- partial -->
+          </div>
+          <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+      </div>
+      <!-- container-scroller -->
+      <!-- plugins:js -->
+      <script src="/corona-free/src/assets/vendors/js/vendor.bundle.base.js"></script>
+      <!-- endinject -->
+      <!-- Plugin js for this page -->
+      <script src="/corona-free/src/assets/vendors/progressbar.js/progressbar.min.js"></script>
+      <script src="/corona-free/src/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+      <script src="/corona-free/src/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+      <!-- End plugin js for this page -->
+      <!-- inject:js -->
+      <script src="/corona-free/src/assets/js/off-canvas.js"></script>
+      <script src="/corona-free/src/assets/js/misc.js"></script>
+      <script src="/corona-free/src/assets/js/settings.js"></script>
+      <script src="/corona-free/src/assets/js/todolist.js"></script>
+      <!-- endinject -->
+      <!-- Custom js for this page -->
+      <script src="/corona-free/src/assets/js/dashboard.js"></script>
+      <!-- End custom js for this page -->
+</body>
+</html>
